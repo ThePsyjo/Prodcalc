@@ -50,6 +50,7 @@ private:
 	QFile *f;
 	BpConfig *bpConf;
 	QDomElement genTag(QDomElement, QString);
+	bool tagCreated;
 public slots:
 	// save functs
 	void delBlueprint(QString);
