@@ -49,6 +49,7 @@ private:
 	QDomDocument *doc;
 	QFile *f;
 	BpConfig *bpConf;
+	QDomElement genTag(QDomElement, QString);
 public slots:
 	// save functs
 	void delBlueprint(QString);

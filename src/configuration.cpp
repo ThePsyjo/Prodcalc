@@ -222,89 +222,59 @@ double ConfigHandler::loadBrokerTax()
 	return brokerTaxTag.attribute("value", "0").toDouble();
 }
 
+/*************************  gentag **************************************/
+
+QDomElement ConfigHandler::genTag(QDomElement inMe, QString tagInMe)
+{
+	QDomElement tag = inMe.firstChildElement(tagInMe);
+	if ( tag.tagName() != tagInMe )
+	{
+		inMe.appendChild(doc->createElement(tagInMe));
+		tag = inMe.firstChildElement(tagInMe);
+	}
+	return tag;
+}
+/************************************************************************/
+
 void ConfigHandler::saveBlueprint(BpConfig* c)
 {
 	bpConf = c;
 	QDomElement root  = doc->documentElement();
-	QDomElement bpTag = root.firstChildElement ( "Blueprints" ); 
-	QString bpTagName = bpConf->name;
 	QString name = bpConf->name;
-	bpTagName.replace(' ', '_');
+	QString bpTagName = bpConf->name.replace(' ', '_');
+	QDomElement lastTag;
 
-	if ( bpTag.tagName() == "Blueprints" ) // <Blueprints>
+	QDomElement tag = genTag(root, "Blueprints");
+
+	lastTag = tag;
+	tag = lastTag.firstChildElement ( bpTagName );
+	if ( tag.tagName() != bpTagName ) // <BP Name>
 	{
-		QDomElement bp = bpTag.firstChildElement ( bpTagName );
-
-		if ( bp.tagName() == bpTagName ) // <BP Name>
-		{
-			QDomElement content = bp.firstChildElement("name");
-
-			if ( content.tagName() == "name" ) // <stackSize>
-				content.setAttribute("value", name);
-			else
-			{
-				content = doc->createElement("name");
-				bp.appendChild(content);
-				saveBlueprint(c);
-			}
-
-			content = bp.firstChildElement("prodTime");
-
-			if ( content.tagName() == "prodTime" ) // <prodTime>
-				content.setAttribute("value", bpConf->prodTime);
-			else
-			{
-				content = doc->createElement("prodTime");
-				bp.appendChild(content);
-				saveBlueprint(c);
-			}
-
-			content = bp.firstChildElement("stackSize");
-
-			if ( content.tagName() == "stackSize" ) // <stackSize>
-				content.setAttribute("value", bpConf->stackSize);
-			else
-			{
-				content = doc->createElement("stackSize");
-				bp.appendChild(content);
-				saveBlueprint(c);
-			}
-
-			content = bp.firstChildElement("minerals");
-
-			if ( content.tagName() == "minerals" ) // <minerals>
-			{
-				content.setAttribute("Tritanium",	bpConf->cnt->at(0));		
-				content.setAttribute("Pyerite",		bpConf->cnt->at(1));		
-				content.setAttribute("Mexallon",	bpConf->cnt->at(2));		
-				content.setAttribute("Isogen",		bpConf->cnt->at(3));		
-				content.setAttribute("Nocxium",		bpConf->cnt->at(4));		
-				content.setAttribute("Zydrine",		bpConf->cnt->at(5));		
-				content.setAttribute("Megacyte",	bpConf->cnt->at(6));		
-				content.setAttribute("Morphite",	bpConf->cnt->at(7));
-			}
-			else
-			{
-				content = doc->createElement("minerals");
-				bp.appendChild(content);
-				saveBlueprint(c);
-			}
-
-		}
-		else
-		{
-			QDomElement tag = doc->createElement(bpTagName);
-			bpTag.appendChild(tag);
-			saveBlueprint(c);
-			emit bpListChanged(loadBpList()); // a new blueprint was added
-		}
+		lastTag.appendChild(doc->createElement(bpTagName));
+		emit bpListChanged(loadBpList()); // a new blueprint was added
+		tag = lastTag.firstChildElement ( bpTagName );
 	}
-	else
-	{
-		QDomElement bpTag = doc->createElement("Blueprints");
-		root.appendChild(bpTag);
-		saveBlueprint(c);
-	}
+
+
+	lastTag = tag; // lastTag == BP Name
+	tag = genTag ( lastTag, "name" );
+	tag.setAttribute("value", name);
+
+	tag = genTag( lastTag, "prodTime" );
+	tag.setAttribute("value", bpConf->prodTime);
+
+	tag = genTag( lastTag, "stackSize" );
+	tag.setAttribute("value", bpConf->stackSize);
+
+	tag = genTag( lastTag, "minerals" );
+	tag.setAttribute("Tritanium",	bpConf->cnt->at(0));		
+	tag.setAttribute("Pyerite",	bpConf->cnt->at(1));		
+	tag.setAttribute("Mexallon",	bpConf->cnt->at(2));		
+	tag.setAttribute("Isogen",	bpConf->cnt->at(3));		
+	tag.setAttribute("Nocxium",	bpConf->cnt->at(4));		
+	tag.setAttribute("Zydrine",	bpConf->cnt->at(5));		
+	tag.setAttribute("Megacyte",	bpConf->cnt->at(6));		
+	tag.setAttribute("Morphite",	bpConf->cnt->at(7));
 }
 
 BpConfig* ConfigHandler::loadBlueprint(QString name)
