@@ -64,6 +64,9 @@ ConfigHandler::~ConfigHandler()
 	QTextStream stream( f );
 	doc->save(stream,3);
 	f->close();
+
+QMessageBox::information(NULL, "finish", QString("all done"));
+
 };
 
 QDomElement ConfigHandler::genTag(QDomElement inMe, QString tagInMe)

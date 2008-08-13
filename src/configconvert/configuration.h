@@ -25,7 +25,7 @@
 #include <QMessageBox>
 
 
-class ConfigHandler
+class ConfigHandler : public QObject
 {
 public:
 	ConfigHandler();

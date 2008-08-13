@@ -3,12 +3,13 @@
 ######################################################################
 
 TEMPLATE = app
-INCLUDEPATH += .
+TARGET = 
+DEPENDPATH += src/configconvert
+INCLUDEPATH += src/configconvert
+QT += xml
 OBJECTS_DIR += obj
 MOC_DIR += moc
 
-
-QT += xml
 
 # Input
 HEADERS += src/configconvert/configuration.h
