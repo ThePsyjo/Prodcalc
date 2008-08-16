@@ -38,4 +38,4 @@ SOURCES += src/blueprint.cpp \
 	   src/shoppingList.cpp \
            src/tax.cpp \
            src/window.cpp
-TRANSLATIONS += src/German.ts src/English.ts src/C.ts
+TRANSLATIONS += src/de.ts src/en.ts
