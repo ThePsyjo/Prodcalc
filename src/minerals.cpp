@@ -38,14 +38,14 @@ Minerals::Minerals( QWidget * parent)
 
 	QString dir = QCoreApplication::applicationDirPath();
 
-	styleMap->insert(0, "background-image: url(" + dir + "/res/tri.png);");
-	styleMap->insert(1, "background-image: url(" + dir + "/res/pye.png);");
-	styleMap->insert(2, "background-image: url(" + dir + "/res/mex.png);");
-	styleMap->insert(3, "background-image: url(" + dir + "/res/iso.png);");
-	styleMap->insert(4, "background-image: url(" + dir + "/res/noc.png);");
-	styleMap->insert(5, "background-image: url(" + dir + "/res/zyd.png);");
-	styleMap->insert(6, "background-image: url(" + dir + "/res/meg.png);");
-	styleMap->insert(7, "background-image: url(" + dir + "/res/mor.png);");
+	styleMap->insert(0, "background-image: url(\"" + dir + "/res/tri.png\");");
+	styleMap->insert(1, "background-image: url(\"" + dir + "/res/pye.png\");");
+	styleMap->insert(2, "background-image: url(\"" + dir + "/res/mex.png\");");
+	styleMap->insert(3, "background-image: url(\"" + dir + "/res/iso.png\");");
+	styleMap->insert(4, "background-image: url(\"" + dir + "/res/noc.png\");");
+	styleMap->insert(5, "background-image: url(\"" + dir + "/res/zyd.png\");");
+	styleMap->insert(6, "background-image: url(\"" + dir + "/res/meg.png\");");
+	styleMap->insert(7, "background-image: url(\"" + dir + "/res/mor.png\");");
 
 	nameMap->insert(0, "Tritanium");
 	nameMap->insert(1, "Pyerite");

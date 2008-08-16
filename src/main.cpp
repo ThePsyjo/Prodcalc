@@ -28,7 +28,8 @@ int main(int argc, char ** argv)
 	QApplication app( argc, argv );
 
 	QTranslator translator;
-	translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::system().name());
+	//printf("%s\n", QLocale::languageToString(QLocale::system().language()).toAscii().data());
+	translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language()));
 	app.installTranslator(&translator);
 
 	app.setWindowIcon(QIcon(QDir::toNativeSeparators(QCoreApplication::applicationDirPath() + "/res/isk1.png")));
