@@ -29,8 +29,7 @@ int main(int argc, char ** argv)
 
 	QTranslator translator;
 	//printf("%s\n", QLocale::languageToString(QLocale::system().language()).toAscii().data());
-	//translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language())); // won't work with win
-	translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::system().name());
+	translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language()));
 	app.installTranslator(&translator);
 
 	app.setWindowIcon(QIcon(QDir::toNativeSeparators(QCoreApplication::applicationDirPath() + "/res/isk1.png")));
