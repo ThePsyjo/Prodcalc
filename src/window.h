@@ -21,7 +21,8 @@
 #define WINDOW_H
 
 #include <QMainWindow>
-#include <QGridLayout>
+#include <QMenuBar>
+#include <QMessageBox>
 #include "calcwidget.h"
 
 class MainWindow : public QMainWindow
@@ -32,6 +33,9 @@ public:
 	virtual ~MainWindow();
 private:
 	CalcWidget *calc;
+	QMenu *about;
+private slots:
+	void handleAboutAction(QAction* a);
 };
 
 

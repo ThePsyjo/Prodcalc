@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="de_DE">
+<!DOCTYPE TS><TS version="1.1" language="en_US">
 <defaultcodec></defaultcodec>
 <context>
     <name>Blueprint</name>
@@ -90,9 +90,29 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="window.cpp" line="26"/>
+        <location filename="window.cpp" line="39"/>
         <source>appName</source>
         <translation>ProdCalc v 0.3.5</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="28"/>
+        <source>&amp;about</source>
+        <translation>&amp;about</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="40"/>
+        <source>about</source>
+        <translation>about</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="39"/>
+        <source>about_prodcalc</source>
+        <comment>dummy</comment>
+        <translation>
+
+Copyright © 2008 Psyjo
+http://prodcalc.googlecode.com
+written with vim</translation>
     </message>
 </context>
 <context>

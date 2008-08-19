@@ -19,20 +19,27 @@
 
 #include "window.h"
 
-
 MainWindow::MainWindow( QWidget * parent, Qt::WFlags f)
         : QMainWindow(parent, f)
 {
 	setWindowTitle(tr("appName"));
 	calc = new CalcWidget (this);
+	about = new QMenu(this);
+	about = menuBar()->addMenu(tr("&about"));
+	about->addAction("ProdCalc");
+	about->addAction("Qt");
+	connect(about, SIGNAL(triggered(QAction*)), this, SLOT(handleAboutAction(QAction*)));
+
 	setCentralWidget(calc);
-//	calc->move(5,5);
-//	resize(calc->width()+10, calc->height()+10);
 	adjustSize();
 }
 
+void MainWindow::handleAboutAction(QAction* a)
+{
+	if (a->text() == "ProdCalc") QMessageBox::about ( this, tr("about"), tr("appName") + tr("about_prodcalc", "dummy"));
+	if (a->text() == "Qt") QMessageBox::aboutQt ( this, tr("about"));
+}
 
 MainWindow::~MainWindow()
 {}
-
 
