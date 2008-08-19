@@ -25,9 +25,10 @@ MainWindow::MainWindow( QWidget * parent, Qt::WFlags f)
 {
 	setWindowTitle(tr("appName"));
 	calc = new CalcWidget (this);
-	calc->move(5,5);
-	resize(calc->width()+10, calc->height()+10);
-//	adjustSize();
+	setCentralWidget(calc);
+//	calc->move(5,5);
+//	resize(calc->width()+10, calc->height()+10);
+	adjustSize();
 }
 
 

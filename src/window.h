@@ -21,6 +21,7 @@
 #define WINDOW_H
 
 #include <QMainWindow>
+#include <QGridLayout>
 #include "calcwidget.h"
 
 class MainWindow : public QMainWindow
