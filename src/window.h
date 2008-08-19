@@ -33,9 +33,10 @@ public:
 	virtual ~MainWindow();
 private:
 	CalcWidget *calc;
-	QMenu *about;
+	QMenu *about, *mFile;
 private slots:
 	void handleAboutAction(QAction* a);
+	void handleFileAction(QAction* a);
 };
 
 

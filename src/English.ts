@@ -90,22 +90,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="window.cpp" line="39"/>
+        <location filename="window.cpp" line="43"/>
         <source>appName</source>
         <translation>ProdCalc v 0.3.5</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="28"/>
+        <location filename="window.cpp" line="32"/>
         <source>&amp;about</source>
         <translation>&amp;about</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="40"/>
+        <location filename="window.cpp" line="44"/>
         <source>about</source>
         <translation>about</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="39"/>
+        <location filename="window.cpp" line="43"/>
         <source>about_prodcalc</source>
         <comment>dummy</comment>
         <translation>
@@ -113,6 +113,16 @@
 Copyright © 2008 Psyjo
 http://prodcalc.googlecode.com
 written with vim</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="28"/>
+        <source>&amp;file</source>
+        <translation>&amp;File</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="49"/>
+        <source>exit</source>
+        <translation>Exit</translation>
     </message>
 </context>
 <context>

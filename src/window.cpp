@@ -24,7 +24,11 @@ MainWindow::MainWindow( QWidget * parent, Qt::WFlags f)
 {
 	setWindowTitle(tr("appName"));
 	calc = new CalcWidget (this);
-	about = new QMenu(this);
+	
+	mFile = menuBar()->addMenu(tr("&file"));
+	mFile->addAction(tr("exit"));
+	connect(mFile, SIGNAL(triggered(QAction*)), this, SLOT(handleFileAction(QAction*)));
+
 	about = menuBar()->addMenu(tr("&about"));
 	about->addAction("ProdCalc");
 	about->addAction("Qt");
@@ -38,6 +42,11 @@ void MainWindow::handleAboutAction(QAction* a)
 {
 	if (a->text() == "ProdCalc") QMessageBox::about ( this, tr("about"), tr("appName") + tr("about_prodcalc", "dummy"));
 	if (a->text() == "Qt") QMessageBox::aboutQt ( this, tr("about"));
+}
+
+void MainWindow::handleFileAction(QAction* a)
+{
+	if (a->text() == tr("exit")) close();
 }
 
 MainWindow::~MainWindow()
