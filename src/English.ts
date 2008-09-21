@@ -73,6 +73,11 @@
         <translation>Parse error at line %1, column %2:
 %3</translation>
     </message>
+    <message>
+        <location filename="configuration.cpp" line="57"/>
+        <source>configuration created in %1.</source>
+        <translation>configuration created in %1.</translation>
+    </message>
 </context>
 <context>
     <name>DelDialog</name>

@@ -85,6 +85,11 @@
         <translation>Parser Fehler auf Zeile %1, Spalte %2
 %3</translation>
     </message>
+    <message>
+        <location filename="configuration.cpp" line="57"/>
+        <source>configuration created in %1.</source>
+        <translation>Konfigurationsdatei %1 erstellt.</translation>
+    </message>
 </context>
 <context>
     <name>DelDialog</name>

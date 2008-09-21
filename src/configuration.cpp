@@ -34,7 +34,7 @@ ConfigHandler::ConfigHandler()
 	int errorLine;
 	int errorColumn;
 
-	if (!doc->setContent(f, true, &errorStr, &errorLine, &errorColumn))
+	if (f->exists() && !doc->setContent(f, true, &errorStr, &errorLine, &errorColumn))
 	{
 		QMessageBox::information(NULL, tr("parse error"),
 						tr("Parse error at line %1, column %2:\n%3")
@@ -54,6 +54,7 @@ ConfigHandler::ConfigHandler()
 #endif
 		QDomElement root = doc->createElement("ProdCalcConfig");
 		doc->appendChild(root);
+		QMessageBox::information(NULL, "info", tr("configuration created in %1.").arg(f->fileName()));
 	}
 };
 
