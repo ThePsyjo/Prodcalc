@@ -80,6 +80,7 @@ private slots:
 	void onIndustrySkillChange(int);
 	void onBpMeChanged(int);
 	void onBpPeChanged(int);
+	void onBpConfigChanged(BpConfig*);
 };
 
 #endif

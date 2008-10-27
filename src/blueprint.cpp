@@ -150,21 +150,16 @@ void Blueprint::setBpSelectBold(bool b)
 
 void Blueprint::onNewClick()
 {
-	bool ok;
-	QString text = 
-	QInputDialog::getText(this, tr("save blueprint"), tr("Type the name of the new blueprint"), QLineEdit::Normal, "", &ok);
-	if (ok && !text.isEmpty())
-	{
-/*		foreach(QString s, )
-		{
-			if ( s == text )
-				return;
-		}
-*/						// check if it is already there
-		bpSelectMenu->addAction(text);
-		emit needBp(text);
-		setBpSelectBold(1);
-	}
+	BpConfig *c = new BpConfig;
+
+	BlueprintInputMask *input = new BlueprintInputMask(c);
+	input->show();
+	input->exec();
+
+	emit bpConfChanged(c);
+	bpSelectMenu->addAction(c->name);
+
+	setBpSelectBold(1);
 }
 
 void Blueprint::onSaveClick()
@@ -197,4 +192,3 @@ void Blueprint::onPeChange(int i)
 	emit peChanged(i);
 	setBpSelectBold(1);
 }
-

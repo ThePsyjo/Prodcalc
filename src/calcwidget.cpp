@@ -89,6 +89,8 @@ CalcWidget::CalcWidget( QWidget * parent)
 	connect(bp,	SIGNAL(delBp(QString)),		this, SLOT(onBpDelClick(QString))	);
 	connect(bp,	SIGNAL(meChanged(int)),		this, SLOT(onBpMeChanged(int))	);
 	connect(bp,	SIGNAL(peChanged(int)),		this, SLOT(onBpPeChanged(int))	);
+
+	connect(bp,	SIGNAL(bpConfChanged(BpConfig*)),	this, SLOT(onBpConfigChanged(BpConfig*)));
 }
 
 //void CalcWidget::recalc(bool rMSumCost, bool rBuyTax, bool rProdCost, bool rSumCost, bool rSellPrice, bool rSellTax, bool rBroker, bool rTargetPrice, bool rSuggest)
@@ -296,6 +298,18 @@ void CalcWidget::onBpMeChanged(int i)
 void CalcWidget::onBpPeChanged(int i)
 {
 	bpConf->pe = i;
+	recalc();
+}
+void CalcWidget::onBpConfigChanged(BpConfig *c)
+{
+	bpConf = c;
+
+	for (int i = 0; i<8; i++)
+		mBaseCnt->insert(i, bpConf->cnt->at(i));
+	prodBaseTime = bpConf->prodTime;
+
+
+	bp->setBp(bpConf);
 	recalc();
 }
 

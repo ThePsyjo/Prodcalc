@@ -1,6 +1,6 @@
 
 /************************************************************************
- * blueprint.h								*
+ * blueprintInputMask.h							*
  * Copyright (C) 2008  Psyjo						*
  *									*
  * This program is free software; you can redistribute it and/or modify	*
@@ -17,56 +17,39 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>. *
  ************************************************************************/
 
-#ifndef BLUEPRINT_H
-#define BLUEPRINT_H
+#ifndef BLUEPRINT_INPUT_H
+#define BLUEPRINT_INPUT_H
 
 #include <QPushButton>
 #include <QLineEdit>
 #include <QLabel>
-#include <QMenu>
 #include <QVector>
 #include <QString>
 #include <QSpinBox>
-#include <QInputDialog>
+#include <QDialog>
 
-#include "mineralCnt.h"
+#include "mineralsDialog.h"
 #include "bpConfig.h"
-#include "bpDelDialog.h"
-#include "blueprintInputMask.h"
 
-class Blueprint : public MineralCnt
+class BlueprintInputMask : public MineralsDialog
 {
 Q_OBJECT
 public:
-	Blueprint(QWidget*);
-	virtual ~Blueprint();
+	BlueprintInputMask(BpConfig*);
+	virtual ~BlueprintInputMask();
 private:
-	QHBoxLayout *hl;
-	QPushButton *bpSelect, *saveButton, *newButton, *delButton; // *duplicateButton, *editButton;
-	QLabel *lStack, *lDuration, *lPe, *lMe; // descripter
-	QLabel *lDurationd, *lDurationh, *lDurationm, *lDurations, *lStackV; // value holder
-	QSpinBox *sbPe, *sbMe;
-	QMenu *bpSelectMenu;
-	void setBpSelectBold(bool);
-	QString toStr(int, QString);
+	QVector<QSpinBox*> *cntSb;
+	QSpinBox **sbData;
+	QPushButton *okButton, *cancelButton;
+	QLabel *lStack, *lDuration, *lMe, *lPe, *lName;
+	QSpinBox *eDurationd, *eDurationh, *eDurationm, *eDurations;
+	QSpinBox *eStack;
+	QSpinBox *sbMe, *sbPe;
+	QLineEdit *eName;
+	BpConfig *c;
 private slots:
-	void onMenuAction(QAction*);
-	void onSaveClick();
-	void onNewClick();
-	void onDelClick();
-	void onMeChange(int);
-	void onPeChange(int);
-signals:
-	void needBp(QString);
-	void saveBp();
-	void delBp(QString);
-	void meChanged(int);
-	void peChanged(int);
-	void bpConfChanged(BpConfig*);
-public slots:
-	void setBpList(QVector<QString>);
-	void setBp(BpConfig*);
-	BpConfig *getBp();
+	void onOkClick();
+	void onCancelClick();
 };
 
 
