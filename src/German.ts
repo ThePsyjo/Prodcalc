@@ -4,27 +4,27 @@
 <context>
     <name>Blueprint</name>
     <message>
-        <location filename="blueprint.cpp" line="183"/>
+        <location filename="blueprint.cpp" line="186"/>
         <source>Blueprint</source>
         <translation>Blueprint</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="27"/>
+        <location filename="blueprint.cpp" line="28"/>
         <source>&amp;save</source>
         <translation>&amp;speichern</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="28"/>
+        <location filename="blueprint.cpp" line="29"/>
         <source>&amp;new...</source>
         <translation>&amp;neu...</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="29"/>
+        <location filename="blueprint.cpp" line="30"/>
         <source>&amp;delete</source>
         <translation>&amp;löschen</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="35"/>
+        <location filename="blueprint.cpp" line="37"/>
         <source>stack</source>
         <translation>Stapel</translation>
     </message>
@@ -41,34 +41,49 @@
         <translation type="obsolete">wirklich ?</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="158"/>
+        <location filename="blueprint.cpp" line="155"/>
         <source>save blueprint</source>
         <translation>Blueprint speichern</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="158"/>
+        <location filename="blueprint.cpp" line="155"/>
         <source>Type the name of the new blueprint</source>
         <translation>Namen für das das neue Blueprint angeben</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="175"/>
+        <location filename="blueprint.cpp" line="178"/>
         <source>really?</source>
         <translation>wirklich ?</translation>
     </message>
     <message>
         <location filename="blueprint.cpp" line="175"/>
         <source>Really remove &quot;</source>
-        <translation>Blueprint &quot;</translation>
+        <translation type="obsolete">Blueprint &quot;</translation>
     </message>
     <message>
         <location filename="blueprint.cpp" line="175"/>
         <source>&quot; ?</source>
-        <translation>&quot; wirklich löschen ?</translation>
+        <translation type="obsolete">&quot; wirklich löschen ?</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="30"/>
+        <location filename="blueprint.cpp" line="32"/>
         <source>productiontime</source>
         <translation>Produktionsdauer</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="40"/>
+        <source>Production Level</source>
+        <translation>Produktionseffiziens</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="41"/>
+        <source>Material Level</source>
+        <translation>Materialeffiziens</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="178"/>
+        <source>Really remove &quot;%1&quot; ?</source>
+        <translation>Das Blueprint &quot;%1&quot; wirklich löschen ?</translation>
     </message>
 </context>
 <context>
@@ -271,6 +286,19 @@ geschrieben mit vim</translation>
         <location filename="shoppingList.cpp" line="46"/>
         <source>unit</source>
         <translation>Einheit</translation>
+    </message>
+</context>
+<context>
+    <name>Skill</name>
+    <message>
+        <location filename="skill.cpp" line="26"/>
+        <source>Industry level</source>
+        <translation>Industry Skill</translation>
+    </message>
+    <message>
+        <location filename="skill.cpp" line="27"/>
+        <source>Production Efficiency Level</source>
+        <translation>Production Efficiency Skill</translation>
     </message>
 </context>
 <context>
