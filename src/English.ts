@@ -112,7 +112,7 @@
     <message>
         <location filename="window.cpp" line="43"/>
         <source>appName</source>
-        <translation>ProdCalc v 0.3.5</translation>
+        <translation>ProdCalc v 0.3.6</translation>
     </message>
     <message>
         <location filename="window.cpp" line="32"/>
