@@ -27,7 +27,6 @@
 #include <QVector>
 #include <QString>
 #include <QSpinBox>
-#include <QDoubleSpinBox>
 #include <QInputDialog>
 
 #include "mineralCnt.h"
@@ -41,31 +40,31 @@ public:
 	Blueprint(QWidget*);
 	virtual ~Blueprint();
 private:
-	QVBoxLayout *vl;
 	QHBoxLayout *hl;
-	QPushButton *bpSelect, *saveButton, *newButton, *delButton;
-	QLabel *lStack, *lDuration;
-	QSpinBox *eDurationd, *eDurationh, *eDurationm, *eDurations;
-	QSpinBox *eStack;
+	QPushButton *bpSelect, *saveButton, *newButton, *delButton; // *duplicateButton, *editButton;
+	QLabel *lStack, *lDuration, *lPe, *lMe; // descripter
+	QLabel *lDurationd, *lDurationh, *lDurationm, *lDurations, *lStackV; // value holder
+	QSpinBox *sbPe, *sbMe;
 	QMenu *bpSelectMenu;
 	void setBpSelectBold(bool);
+	QString toStr(int, QString);
 private slots:
-	void onDurationChange();
-	void onStackChange(int);
-	void onMCntChange();
 	void onMenuAction(QAction*);
 	void onSaveClick();
 	void onNewClick();
 	void onDelClick();
+	void onMeChange(int);
+	void onPeChange(int);
 signals:
-	void durationChanged(int);
-	void stackChanged(int);
 	void needBp(QString);
-	void saveBp(BpConfig*);
+	void saveBp();
 	void delBp(QString);
+	void meChanged(int);
+	void peChanged(int);
 public slots:
 	void setBpList(QVector<QString>);
 	void setBp(BpConfig*);
+	BpConfig *getBp();
 };
 
 

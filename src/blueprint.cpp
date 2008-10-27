@@ -24,85 +24,67 @@ Blueprint::Blueprint( QWidget * parent)
 {
         bpSelect	= new QPushButton (tr("Blueprint"), this);
         bpSelectMenu	= new QMenu (this);
+
         saveButton	= new QPushButton (tr("&save"), this);
         newButton	= new QPushButton (tr("&new..."), this);
         delButton	= new QPushButton (tr("&delete"), this);
-	lDuration	= new QLabel(tr("productiontime"), this);
-	eDurations	= new QSpinBox (this);
-	eDurationm	= new QSpinBox (this);
-	eDurationh	= new QSpinBox (this);
-	eDurationd	= new QSpinBox (this);
-	lStack 		= new QLabel(tr("stack"));
-	eStack		= new QSpinBox (this);
 
-	vl = new QVBoxLayout;
+	lDuration	= new QLabel(tr("productiontime"), this);
+	lDurations	= new QLabel ("0", this);
+	lDurationm	= new QLabel ("0", this);
+	lDurationh	= new QLabel ("0", this);
+	lDurationd	= new QLabel ("0", this);
+	lStack 		= new QLabel(tr("stack"));
+	lStackV		= new QLabel ("0", this);
+
+	lPe		= new QLabel (tr("Production Level"), this);
+	lMe		= new QLabel (tr("Material Level"), this);
+	sbPe		= new QSpinBox (this);
+	sbMe		= new QSpinBox (this);
+
+	sbMe->setMaximum(1000000);
+	sbPe->setMaximum(1000000);
+
 	hl = new QHBoxLayout;
 
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
 
-	eStack->setMaximum(1000000); // 1mio
+	layout->addWidget(lDuration, 0, 3, 1, 3);
 
-	eDurationd->setSuffix("d");
-	eDurationd->setMaximum(20);
-	eDurationh->setSuffix("h");
-	eDurationh->setMaximum(23);
-	eDurationm->setSuffix("m");
-	eDurationm->setMaximum(59);
-	eDurations->setSuffix("s");
-	eDurations->setMaximum(59);
+	hl->addWidget(lDurationd);
+	hl->addWidget(lDurationh);
+	hl->addWidget(lDurationm);
+	hl->addWidget(lDurations);
 
-	vl->addWidget(bpSelect);
-	vl->addWidget(lDuration);
+	layout->addLayout(hl, 1, 3, 1, 3);
 
-	hl->addWidget(eDurationd);
-	hl->addWidget(eDurationh);
-	hl->addWidget(eDurationm);
-	hl->addWidget(eDurations);
+	layout->addWidget(lStack,  2, 3, 1, 3);
+	layout->addWidget(lStackV, 3, 3, 1, 3);
 
-	vl->addLayout(hl);
+	layout->addWidget(lMe,  4, 3, 1, 3);
+	layout->addWidget(sbMe, 5, 3, 1, 3);
+	layout->addWidget(lPe,  6, 3, 1, 3);
+	layout->addWidget(sbPe, 7, 3, 1, 3);
 
-	vl->addWidget(lStack);
-	vl->addWidget(eStack);
-	vl->addWidget(delButton);
-	vl->addWidget(newButton);
-	vl->addWidget(saveButton);
-
-	layout->addLayout(vl, 0,3, 8,3);
+	layout->addWidget(bpSelect, 0, 7);
+	layout->addWidget(delButton, 2, 7);
+	layout->addWidget(newButton, 3, 7);
+	layout->addWidget(saveButton, 4, 7);
 
 	adjustSize();
 
-
-	connect(eDurationd	, SIGNAL(valueChanged(int)),	this, SLOT(onDurationChange()));
-	connect(eDurationh	, SIGNAL(valueChanged(int)),	this, SLOT(onDurationChange()));
-	connect(eDurationm	, SIGNAL(valueChanged(int)),	this, SLOT(onDurationChange()));
-	connect(eDurations	, SIGNAL(valueChanged(int)),	this, SLOT(onDurationChange()));
-	connect(eStack		, SIGNAL(valueChanged(int)),	this, SLOT(onStackChange(int)));
 	connect(bpSelectMenu	, SIGNAL(triggered(QAction*)),	this, SLOT(onMenuAction(QAction*)));
 	connect(saveButton	, SIGNAL(clicked()), this, SLOT(onSaveClick()));
 	connect(newButton	, SIGNAL(clicked()), this, SLOT(onNewClick()));
 	connect(delButton	, SIGNAL(clicked()), this, SLOT(onDelClick()));
 
-	connect(this		, SIGNAL(cntChanged(QVector<int>*)),	this, SLOT(onMCntChange()));
+	connect(sbMe		, SIGNAL(valueChanged(int)), this, SLOT(onMeChange(int)));
+	connect(sbPe		, SIGNAL(valueChanged(int)), this, SLOT(onPeChange(int)));
 }
 
 Blueprint::~Blueprint()
 {}
-
-void Blueprint::setBpSelectBold(bool b)
-{
-	(b) ? bpSelect->setFont(QFont("Helvetica", 10, QFont::Bold)) : bpSelect->setFont(QFont("Helvetica", 10));
-}
-
-void Blueprint::onDurationChange()
-{
-	setBpSelectBold(1);
-	emit durationChanged(eDurationd->value() * 24 * 60 * 60 + eDurationh->value() * 60 * 60 + eDurationm->value() * 60 + eDurations->value());
-}
-void Blueprint::onStackChange(int i)
-{	setBpSelectBold(1); emit stackChanged(i);	}
-void Blueprint::onMCntChange()
-{	setBpSelectBold(1);	}
 
 void Blueprint::setBpList(QVector<QString> v)
 {
@@ -118,39 +100,54 @@ void Blueprint::onMenuAction(QAction* a)
 	setBpSelectBold(0);
 }
 
+QString Blueprint::toStr(int i, QString ex)
+{ return QString("%L1" + ex).arg(i, 3); }
+
 void Blueprint::setBp(BpConfig* c)
 {
 	bpSelect->setText(c->name);
 
 	for (int i = 0; i<8; i++)
-		sbData[i]->setValue(c->cnt->at(i));
-
-	eStack->setValue(c->stackSize);
+		cnt[i]->setText(toStr(c->cnt->at(i), ""));
 
 	int d, h, m, s;
 	d    = unsigned( c->prodTime / 86400 );
 	h    = unsigned( c->prodTime - d * 86400) / 3600;
 	m    = unsigned( c->prodTime - d * 86400 - h * 3600 ) / 60;
 	s    = unsigned( c->prodTime - d * 86400 - h * 3600 - m * 60 );
-	eDurationd->setValue(d);
-	eDurationh->setValue(h);
-	eDurationm->setValue(m);
-	eDurations->setValue(s);
+	lDurationd->setText(toStr(d, " d"));
+	lDurationh->setText(toStr(h, " h"));
+	lDurationm->setText(toStr(m, " m"));
+	lDurations->setText(toStr(s, " s"));
+
+	lStackV->setText(toStr(c->stackSize, ""));
+	sbMe->setValue(c->me);
+	sbPe->setValue(c->pe);
 }
 
-void Blueprint::onSaveClick()
+BpConfig* Blueprint::getBp()
 {
-	BpConfig *c = new BpConfig;
+	BpConfig *bpConf = new BpConfig;
+	
+	bpConf->name = bpSelect->text();
 
-	c->name = bpSelect->text();
 	for (int i = 0; i<8; i++)
-		c->cnt->insert(i, sbData[i]->value());
-	c->stackSize = eStack->value();
-	c->prodTime = eDurationd->value() * 24 * 60 * 60 + eDurationh->value() * 60 * 60 + eDurationm->value() * 60 + eDurations->value();
+		bpConf->cnt->insert( i,	cnt[i]->text().toInt());
 
-	emit saveBp(c);
-	setBpSelectBold(0);
+	bpConf->prodTime = lDurationd->text().toInt() * 86400 + lDurationh->text().toInt() * 3600 + lDurationm->text().toInt() * 60 + lDurations->text().toInt();
+
+	bpConf->stackSize	= lStackV->text().toInt();
+	bpConf->me		= sbMe->value();
+	bpConf->pe		= sbPe->value();
+
+	return bpConf;
 }
+
+void Blueprint::setBpSelectBold(bool b)
+{
+        (b) ? bpSelect->setFont(QFont("Helvetica", 10, QFont::Bold)) : bpSelect->setFont(QFont("Helvetica", 10));
+}
+
 void Blueprint::onNewClick()
 {
 	bool ok;
@@ -170,9 +167,15 @@ void Blueprint::onNewClick()
 	}
 }
 
+void Blueprint::onSaveClick()
+{
+	emit saveBp();
+	setBpSelectBold(0);
+}
+
 void Blueprint::onDelClick()
 {
-	DelDialog *dialog = new DelDialog (tr("really?"), tr("Really remove \"") + bpSelect->text() + tr("\" ?"), this);
+	DelDialog *dialog = new DelDialog (tr("really?"), tr("Really remove \"%1\" ?").arg(bpSelect->text()), this);
 	dialog->show();
 	if(!dialog->exec())
 	{
@@ -183,10 +186,15 @@ void Blueprint::onDelClick()
 	bpSelect->setText(tr("Blueprint"));
 }
 
+void Blueprint::onMeChange(int i)
+{
+	emit meChanged(i);
+	setBpSelectBold(1);
+}
 
-
-
-
-
-
+void Blueprint::onPeChange(int i)
+{
+	emit peChanged(i);
+	setBpSelectBold(1);
+}
 

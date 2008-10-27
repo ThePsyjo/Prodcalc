@@ -23,6 +23,7 @@ HEADERS += src/blueprint.h \
            src/result.h \
 	   src/shoppingList.h \
            src/tax.h \
+           src/skill.h \
            src/window.h
 SOURCES += src/blueprint.cpp \
            src/bpConfig.cpp \
@@ -37,5 +38,6 @@ SOURCES += src/blueprint.cpp \
            src/result.cpp \
 	   src/shoppingList.cpp \
            src/tax.cpp \
+           src/skill.cpp \
            src/window.cpp
 TRANSLATIONS += src/German.ts src/English.ts

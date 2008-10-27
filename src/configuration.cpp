@@ -166,6 +166,28 @@ double ConfigHandler::loadRental()
 	return genTag ( doc->documentElement(), "rental" ).attribute("value", "0").toDouble();
 }
 
+///////////////////////  save/load PE //////////////////////
+void ConfigHandler::saveProducteffSkill(int i)
+{
+	genTag ( doc->documentElement(), "PE_Skill" ).setAttribute("value", i);		
+}
+
+int ConfigHandler::loadProducteffSkill()
+{
+	return genTag ( doc->documentElement(), "PE_Skill" ).attribute("value", "0").toInt();
+}
+
+///////////////////////  save/load ME //////////////////////
+void ConfigHandler::saveIndustrySkill(int i)
+{
+	genTag ( doc->documentElement(), "Industry_Skill" ).setAttribute("value", i);		
+}
+
+int ConfigHandler::loadIndustrySkill()
+{
+	return genTag ( doc->documentElement(), "Industry_Skill" ).attribute("value", "0").toInt();
+}
+
 void ConfigHandler::saveBlueprint(BpConfig* c)
 {
 	bpConf = c;
@@ -183,6 +205,9 @@ void ConfigHandler::saveBlueprint(BpConfig* c)
 
 //	tag = genTag( blueprintTag, "stackSize" );
 	blueprintTag.setAttribute("stackSize", bpConf->stackSize);
+
+	blueprintTag.setAttribute("ME", bpConf->me);
+	blueprintTag.setAttribute("PE", bpConf->pe);
 
 	// bp name has to be set !!
 	if (tagCreated) emit bpListChanged(loadBpList()); // a new blueprint was added
@@ -208,6 +233,8 @@ BpConfig* ConfigHandler::loadBlueprint(QString name)
 	QDomElement blueprintTag = genTag( genTag(doc->documentElement(), "Blueprints"), name.replace(' ', '_') ); // tag containing selected blueprints
 
 	bpConf->stackSize =  blueprintTag.attribute("stackSize", "100").toInt();
+	bpConf->me =  blueprintTag.attribute("ME", "0").toInt();
+	bpConf->pe =  blueprintTag.attribute("PE", "0").toInt();
 	bpConf->prodTime =  blueprintTag.attribute("prodTime", "0").toInt();
 
 	QDomElement 

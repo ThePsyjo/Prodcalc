@@ -24,30 +24,17 @@ MineralCnt::MineralCnt( QWidget * parent)
 {
 	setParent(parent);
 
-	sb = new QVector<QSpinBox*>(8);
-	sbData = sb->data();
-	cntVector = new QVector<int>(8);
+	cntLb = new QVector<QLabel*>(8);
+	cnt = cntLb->data();
 
 	for (int i=0; i<8; i++)
 	{
-		sbData[i] = new QSpinBox (this);
-		sbData[i]->setMaximum(1000000000); // 1bio
-		layout->addWidget(sbData[i], i, 2);
-		connect(sbData[i], SIGNAL(valueChanged(int)), this, SLOT(onChange()));
+		cnt[i] = new QLabel ("0", this);
+		layout->addWidget(cnt[i], i, 2);
 	}
 	
 	adjustSize();
 }
-
-void MineralCnt::onChange()
-{
-	for (int i=0; i<8; i++)
-		cntVector->insert(i, sb->at(i)->value());
-
-	emit cntChanged(cntVector);
-}
-
-
 
 MineralCnt::~MineralCnt()
 {}

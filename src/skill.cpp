@@ -1,6 +1,6 @@
 
 /************************************************************************
- * mineralCnt.h								*
+ * skill.cpp								*
  * Copyright (C) 2008  Psyjo						*
  *									*
  * This program is free software; you can redistribute it and/or modify	*
@@ -17,23 +17,45 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>. *
  ************************************************************************/
 
-#ifndef MINERAL_CNT_H
-#define MINERAL_CNT_H
+#include "skill.h"
 
-#include <QVector>
-#include "minerals.h"
-
-class MineralCnt : public Minerals
+Skill::Skill(int Ind, int Pe, QWidget *parent)
 {
-Q_OBJECT
-public:
-	MineralCnt( QWidget * parent =0 );
-	virtual ~MineralCnt();
-private:
-	QVector<QLabel*> *cntLb;
-protected:
-	QLabel** cnt;
-};
+	setParent(parent);
 
-#endif
+	lInd	= new QLabel (tr("Industry level"), this);
+	lPe	= new QLabel (tr("Production Efficiency Level"), this);
+
+	sbInd	= new QSpinBox (this);
+	sbPe	= new QSpinBox (this);
+
+	sbInd->setValue(Ind);
+	sbPe->setValue(Pe);
+
+	sbInd->setMaximum(5);
+	sbInd->setMinimum(0);
+	sbPe->setMaximum(5);
+	sbPe->setMinimum(0);
+
+	layout   = new QVBoxLayout(this);
+
+	layout->addWidget(lInd);
+	layout->addWidget(sbInd);
+//spacer
+	layout->addWidget(lPe);
+	layout->addWidget(sbPe);
+
+	adjustSize();
+
+	connect(sbInd,	  SIGNAL(valueChanged(int)), this, SLOT(onIndChange(int)));
+	connect(sbPe,	  SIGNAL(valueChanged(int)), this, SLOT(onPeChange(int)));
+}
+
+void Skill::onIndChange(int i)
+{	emit indSkillChanged(i);}
+void Skill::onPeChange(int i)
+{	emit peSkillChanged(i);	}
+
+Skill::~Skill()
+{}
 

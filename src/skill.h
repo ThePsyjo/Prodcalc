@@ -1,6 +1,6 @@
 
 /************************************************************************
- * mineralCnt.h								*
+ * skill.h								*
  * Copyright (C) 2008  Psyjo						*
  *									*
  * This program is free software; you can redistribute it and/or modify	*
@@ -17,22 +17,32 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>. *
  ************************************************************************/
 
-#ifndef MINERAL_CNT_H
-#define MINERAL_CNT_H
+#ifndef SKILL_H
+#define SKILL_H
 
-#include <QVector>
-#include "minerals.h"
+//#include <QWidget>
+#include <QGroupBox>
+#include <QSpinBox>
+#include <QLabel>
+#include <QVBoxLayout>
 
-class MineralCnt : public Minerals
+//class Skill : public QWidget
+class Skill : public QGroupBox
 {
 Q_OBJECT
 public:
-	MineralCnt( QWidget * parent =0 );
-	virtual ~MineralCnt();
+	Skill(int, int, QWidget*);
+	virtual ~Skill();
 private:
-	QVector<QLabel*> *cntLb;
-protected:
-	QLabel** cnt;
+	QLabel *lInd, *lPe;
+	QSpinBox *sbInd, *sbPe;
+	QVBoxLayout *layout;
+private slots:
+	void onIndChange(int);
+	void onPeChange(int);
+signals:
+	void indSkillChanged(int);
+	void peSkillChanged(int);
 };
 
 #endif

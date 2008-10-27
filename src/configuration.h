@@ -45,6 +45,8 @@ public:
 	double loadSellTax();
 	double loadBrokerTax();
 	QString loadStyleSheet();
+	int loadIndustrySkill();
+	int loadProducteffSkill();
 private:
 	QDomDocument *doc;
 	QFile *f;
@@ -61,6 +63,8 @@ public slots:
 	void saveBrokerTax(double);
 	void saveInstallFee(double);
 	void saveRental(double);
+	void saveIndustrySkill(int);
+	void saveProducteffSkill(int);
 signals:
 	void bpListChanged(QVector<QString>);
 };

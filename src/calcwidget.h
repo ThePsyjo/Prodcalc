@@ -27,6 +27,7 @@
 #include "blueprint.h"
 #include "production.h"
 #include "tax.h"
+#include "skill.h"
 #include "result.h"
 #include "configuration.h"
 #include "shoppingList.h"
@@ -38,25 +39,28 @@ public:
 	CalcWidget( QWidget * parent =0 );
 	virtual ~CalcWidget();
 private:
+	BpConfig *bpConf;
+
 	QGridLayout *layout;
+
 	MineralCosts *costs;
 	Blueprint *bp;
 	Production *prod;
 	Tax *tax;
 	Result *result;
 	ConfigHandler *conf;
+	Skill *skill;
 
 	/*calculating variables*/
 	QVector<double> *mCost;
-	QVector<int> *mCnt;
-	double install, prodTime, rental, sellTax, buyTax, sellTaxValue, buyTaxValue, broker, brokerValue, targetUnitCost, targetRunPrice, targetNRunPrice, others, mSumCost, sellPrice, prodCost, sumCost, suggest;
-	int stack, runs, cnt;
+	QVector<int> *mBaseCnt;
+	double install, rental, sellTax, buyTax, sellTaxValue, buyTaxValue, broker, brokerValue, targetUnitCost, targetRunPrice, targetNRunPrice, others, mSumCost, sellPrice, prodCost, sumCost, suggest;
+	int stack, runs, cnt, industrySkill, producteffSkill, prodBaseTime;
 	double calcSuggest(double, double);
 public slots:
-	void recalc(bool, bool, bool, bool, bool, bool, bool, bool, bool);
+	void recalc();
 private slots:
 	void onCostChange(QVector<double>*);
-	void onCntChange(QVector<int>*);
 	void onRentalChange(double);
 	void onSellTaxChange(double);
 	void onBuyTaxChange(double);
@@ -67,12 +71,15 @@ private slots:
 	void onOthersChange(double);
 	void onStackChange(int);
 	void onRunsChange(int);
-	void onDurationChange(int);
 	void onInstallChange(double);
 	void onBpMenuAction(QString);
-	void onBpSaveClick(BpConfig*);
+	void onBpSaveClick();
 	void onBpDelClick(QString);
 	void genShopList();
+	void onProducteffSkillChange(int);
+	void onIndustrySkillChange(int);
+	void onBpMeChanged(int);
+	void onBpPeChanged(int);
 };
 
 #endif

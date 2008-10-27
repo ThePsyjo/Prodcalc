@@ -177,6 +177,7 @@ void Result::setCost(double d)
 {	lb->at(19)->setText(redStr(d));align(19);	};
 void Result::setSell(double d)
 {	lb->at(21)->setText(greenStr(d));align(21);	};
+
 void Result::setBrokerTax(double d)
 {	lb->at(25)->setText(redStr(d));align(25);	};
 void Result::setProfit(double d)

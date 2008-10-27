@@ -34,6 +34,8 @@ public:
 	QVector<int>*cnt;
 	int stackSize;
 	int prodTime;
+	int me;
+	int pe;
 };
 
 
