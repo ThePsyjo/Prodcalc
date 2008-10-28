@@ -152,14 +152,15 @@ void Blueprint::onNewClick()
 {
 	BpConfig *c = new BpConfig;
 
-	BlueprintInputMask *input = new BlueprintInputMask(c);
+	BlueprintInputMask *input = new BlueprintInputMask(tr("add blueprint"), c, this);
+//	input->setStyleSheet(styleSheet());
 	input->show();
-	input->exec();
-
-	emit bpConfChanged(c);
-	bpSelectMenu->addAction(c->name);
-
-	setBpSelectBold(1);
+	if(input->exec())
+	{
+		emit bpConfChanged(c);
+		bpSelectMenu->addAction(c->name);
+		setBpSelectBold(1);
+	}
 }
 
 void Blueprint::onSaveClick()

@@ -19,10 +19,12 @@
 
 #include "blueprintInputMask.h"
 
-BlueprintInputMask::BlueprintInputMask( BpConfig *cnf )
-//        : MineralsDialog(NULL)
+BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *cnf, QWidget* parent )
 {
+	setParent(parent);
 	setWindowFlags(Qt::Dialog);
+	setWindowTitle(name);
+	setModal(1);
 	c = cnf;
 	//setModal(true);
 
@@ -105,7 +107,7 @@ BlueprintInputMask::BlueprintInputMask( BpConfig *cnf )
 	adjustSize();
 
 	connect(okButton	, SIGNAL(clicked()), this, SLOT(onOkClick()));
-	connect(cancelButton	, SIGNAL(clicked()), this, SLOT(onCancelClick()));
+	connect(cancelButton	, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 BlueprintInputMask::~BlueprintInputMask()
@@ -126,8 +128,6 @@ void BlueprintInputMask::onOkClick()
 	c->stackSize = eStack->value();
 	c->me        = sbMe->value();
 	c->pe        = sbPe->value();
-	this->close();
+	accept();
 }
 
-void BlueprintInputMask::onCancelClick()
-{this->close();}
