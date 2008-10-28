@@ -57,6 +57,7 @@ private:
 	double install, rental, sellTax, buyTax, sellTaxValue, buyTaxValue, broker, brokerValue, targetUnitCost, targetRunPrice, targetNRunPrice, others, mSumCost, sellPrice, prodCost, sumCost, suggest;
 	int stack, runs, cnt, industrySkill, producteffSkill, prodBaseTime;
 	double calcSuggest(double, double);
+	int d2i(double);
 public slots:
 	void recalc();
 private slots:

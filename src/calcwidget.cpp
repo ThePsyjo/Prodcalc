@@ -94,13 +94,14 @@ CalcWidget::CalcWidget( QWidget * parent)
 }
 
 //void CalcWidget::recalc(bool rMSumCost, bool rBuyTax, bool rProdCost, bool rSumCost, bool rSellPrice, bool rSellTax, bool rBroker, bool rTargetPrice, bool rSuggest)
+int CalcWidget::d2i(double d){return int(d<0?d-.5:d+.5);}
 void CalcWidget::recalc()
 {
 
-	bpConf->prodTime = int((prodBaseTime*(0.8+0.2/(1+bpConf->pe)))*(1-0.04*industrySkill));
+	bpConf->prodTime = d2i((prodBaseTime*(0.8+0.2/(1+bpConf->pe)))*(1-0.04*industrySkill));
 		
 	for (int i = 0; i<8; i++)
-		bpConf->cnt->insert(i, int(mBaseCnt->at(i)*(1+0.1/(bpConf->me+1))*(1.25-0.05*producteffSkill)));
+		bpConf->cnt->insert(i, d2i(mBaseCnt->at(i)*(1+0.1/(bpConf->me+1))*(1.25-0.05*producteffSkill)));
 
 //	if ( rcSet[0] )
 //	{
