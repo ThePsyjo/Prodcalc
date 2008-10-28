@@ -43,12 +43,13 @@ public:
 private:
 	QHBoxLayout *hl;
 	QPushButton *bpSelect, *saveButton, *newButton, *delButton; // *duplicateButton, *editButton;
-	QLabel *lStack, *lDuration, *lPe, *lMe; // descripter
-	QLabel *lDurationd, *lDurationh, *lDurationm, *lDurations, *lStackV; // value holder
+	QLabel *lStack, *lProdTime, *lPe, *lMe; // descripter
+	QLabel *lProdTimeV, *lStackV; // value holder
 	QSpinBox *sbPe, *sbMe;
 	QMenu *bpSelectMenu;
 	void setBpSelectBold(bool);
 	QString toStr(int, QString);
+	int prodTime;
 private slots:
 	void onMenuAction(QAction*);
 	void onSaveClick();

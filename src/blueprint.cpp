@@ -29,11 +29,8 @@ Blueprint::Blueprint( QWidget * parent)
         newButton	= new QPushButton (tr("&new..."), this);
         delButton	= new QPushButton (tr("&delete"), this);
 
-	lDuration	= new QLabel(tr("productiontime"), this);
-	lDurations	= new QLabel ("0", this);
-	lDurationm	= new QLabel ("0", this);
-	lDurationh	= new QLabel ("0", this);
-	lDurationd	= new QLabel ("0", this);
+	lProdTime	= new QLabel(tr("productiontime"), this);
+	lProdTimeV	= new QLabel ("0", this);
 	lStack 		= new QLabel(tr("stack"));
 	lStackV		= new QLabel ("0", this);
 
@@ -41,6 +38,8 @@ Blueprint::Blueprint( QWidget * parent)
 	lMe		= new QLabel (tr("Material Level"), this);
 	sbPe		= new QSpinBox (this);
 	sbMe		= new QSpinBox (this);
+
+	prodTime=0;
 
 	sbMe->setMaximum(1000000);
 	sbPe->setMaximum(1000000);
@@ -50,27 +49,24 @@ Blueprint::Blueprint( QWidget * parent)
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
 
-	layout->addWidget(lDuration, 0, 3, 1, 3);
+	layout->addWidget(lProdTime, 0, 3 );
+	layout->addWidget(lProdTimeV, 1, 3);
 
-	hl->addWidget(lDurationd);
-	hl->addWidget(lDurationh);
-	hl->addWidget(lDurationm);
-	hl->addWidget(lDurations);
 
-	layout->addLayout(hl, 1, 3, 1, 3);
+	layout->addLayout(hl, 1, 3);
 
-	layout->addWidget(lStack,  2, 3, 1, 3);
-	layout->addWidget(lStackV, 3, 3, 1, 3);
+	layout->addWidget(lStack,  2, 3);
+	layout->addWidget(lStackV, 3, 3);
 
-	layout->addWidget(lMe,  4, 3, 1, 3);
-	layout->addWidget(sbMe, 5, 3, 1, 3);
-	layout->addWidget(lPe,  6, 3, 1, 3);
-	layout->addWidget(sbPe, 7, 3, 1, 3);
+	layout->addWidget(lMe,  4, 3);
+	layout->addWidget(sbMe, 5, 3);
+	layout->addWidget(lPe,  6, 3);
+	layout->addWidget(sbPe, 7, 3);
 
-	layout->addWidget(bpSelect, 0, 7);
-	layout->addWidget(delButton, 2, 7);
-	layout->addWidget(newButton, 3, 7);
-	layout->addWidget(saveButton, 4, 7);
+	layout->addWidget(bpSelect, 0, 4);
+	layout->addWidget(delButton, 2, 4);
+	layout->addWidget(newButton, 3, 4);
+	layout->addWidget(saveButton, 4, 4);
 
 	adjustSize();
 
@@ -110,15 +106,13 @@ void Blueprint::setBp(BpConfig* c)
 	for (int i = 0; i<8; i++)
 		cnt[i]->setText(toStr(c->cnt->at(i), ""));
 
+	prodTime=c->prodTime;
 	int d, h, m, s;
-	d    = unsigned( c->prodTime / 86400 );
-	h    = unsigned( c->prodTime - d * 86400) / 3600;
-	m    = unsigned( c->prodTime - d * 86400 - h * 3600 ) / 60;
-	s    = unsigned( c->prodTime - d * 86400 - h * 3600 - m * 60 );
-	lDurationd->setText(toStr(d, " d"));
-	lDurationh->setText(toStr(h, " h"));
-	lDurationm->setText(toStr(m, " m"));
-	lDurations->setText(toStr(s, " s"));
+	d    = unsigned( prodTime / 86400 );
+	h    = unsigned( prodTime - d * 86400) / 3600;
+	m    = unsigned( prodTime - d * 86400 - h * 3600 ) / 60;
+	s    = unsigned( prodTime - d * 86400 - h * 3600 - m * 60 );
+	lProdTimeV->setText(toStr(d, " s, ") + toStr(h, " h, ") + toStr(m, " m, ") + toStr(s, " s"));
 
 	lStackV->setText(toStr(c->stackSize, ""));
 	sbMe->setValue(c->me);
@@ -134,7 +128,8 @@ BpConfig* Blueprint::getBp()
 	for (int i = 0; i<8; i++)
 		bpConf->cnt->insert( i,	cnt[i]->text().toInt());
 
-	bpConf->prodTime = lDurationd->text().toInt() * 86400 + lDurationh->text().toInt() * 3600 + lDurationm->text().toInt() * 60 + lDurations->text().toInt();
+//	bpConf->prodTime = llProdTimeV->text().toInt() * 86400 + llProdTimeV->text().toInt() * 3600 + llProdTimeV->text().toInt() * 60 + llProdTimeV->text().toInt();
+	bpConf->prodTime = prodTime;
 
 	bpConf->stackSize	= lStackV->text().toInt();
 	bpConf->me		= sbMe->value();
