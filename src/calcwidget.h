@@ -53,9 +53,8 @@ private:
 
 	/*calculating variables*/
 	QVector<double> *mCost;
-	QVector<int> *mBaseCnt;
 	double install, rental, sellTax, buyTax, sellTaxValue, buyTaxValue, broker, brokerValue, targetUnitCost, targetRunPrice, targetNRunPrice, others, mSumCost, sellPrice, prodCost, sumCost, suggest;
-	int stack, runs, cnt, industrySkill, producteffSkill, prodBaseTime;
+	int stack, runs, cnt, industrySkill, producteffSkill;
 	double calcSuggest(double, double);
 	int d2i(double);
 public slots:
@@ -74,13 +73,11 @@ private slots:
 	void onRunsChange(int);
 	void onInstallChange(double);
 	void onBpMenuAction(QString);
-	void onBpSaveClick();
+	void onBpSaveClick(BpConfig*);
 	void onBpDelClick(QString);
 	void genShopList();
 	void onProducteffSkillChange(int);
 	void onIndustrySkillChange(int);
-	void onBpMeChanged(int);
-	void onBpPeChanged(int);
 	void onBpConfigChanged(BpConfig*);
 };
 

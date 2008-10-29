@@ -41,15 +41,14 @@ public:
 	Blueprint(QWidget*);
 	virtual ~Blueprint();
 private:
-	QHBoxLayout *hl;
-	QPushButton *bpSelect, *saveButton, *newButton, *delButton; // *duplicateButton, *editButton;
+	QPushButton *bpSelect, *saveButton, *newButton, *delButton;
 	QLabel *lStack, *lProdTime, *lPe, *lMe; // descripter
 	QLabel *lProdTimeV, *lStackV; // value holder
 	QSpinBox *sbPe, *sbMe;
 	QMenu *bpSelectMenu;
 	void setBpSelectBold(bool);
 	QString toStr(int, QString);
-	int prodTime;
+	BpConfig *bpConf;
 private slots:
 	void onMenuAction(QAction*);
 	void onSaveClick();
@@ -59,15 +58,13 @@ private slots:
 	void onPeChange(int);
 signals:
 	void needBp(QString);
-	void saveBp();
 	void delBp(QString);
-	void meChanged(int);
-	void peChanged(int);
+	void saveBp(BpConfig*);
 	void bpConfChanged(BpConfig*);
 public slots:
 	void setBpList(QVector<QString>);
 	void setBp(BpConfig*);
-	BpConfig *getBp();
+	BpConfig* getBp();
 };
 
 

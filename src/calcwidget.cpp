@@ -30,9 +30,8 @@ CalcWidget::CalcWidget( QWidget * parent)
 
 	bpConf = new BpConfig;
 	mCost = new QVector<double>(8);
-	mBaseCnt = new QVector<int>(8);
 	install = rental = sellTaxValue = buyTaxValue = brokerValue = others = targetUnitCost = targetRunPrice = targetNRunPrice = mSumCost = sellPrice = prodCost = sumCost = 0;
-	runs = cnt = industrySkill = producteffSkill = prodBaseTime = 0;
+	runs = cnt = industrySkill = producteffSkill = 0;
 
 	conf = new ConfigHandler;
 
@@ -85,23 +84,20 @@ CalcWidget::CalcWidget( QWidget * parent)
 
 	connect(conf,	SIGNAL(bpListChanged(QVector<QString>)),	bp, SLOT(setBpList(QVector<QString>))				);
 	connect(bp,	SIGNAL(needBp(QString)),	this, SLOT(onBpMenuAction(QString))	);
-	connect(bp,	SIGNAL(saveBp()),		this, SLOT(onBpSaveClick())		);
 	connect(bp,	SIGNAL(delBp(QString)),		this, SLOT(onBpDelClick(QString))	);
-	connect(bp,	SIGNAL(meChanged(int)),		this, SLOT(onBpMeChanged(int))	);
-	connect(bp,	SIGNAL(peChanged(int)),		this, SLOT(onBpPeChanged(int))	);
-
-	connect(bp,	SIGNAL(bpConfChanged(BpConfig*)),	this, SLOT(onBpConfigChanged(BpConfig*)));
+	connect(bp,	SIGNAL(saveBp(BpConfig*)),	this, SLOT(onBpSaveClick(BpConfig*))	);
+	connect(bp,	SIGNAL(bpConfChanged(BpConfig*)),this,SLOT(onBpConfigChanged(BpConfig*)));
 }
 
-//void CalcWidget::recalc(bool rMSumCost, bool rBuyTax, bool rProdCost, bool rSumCost, bool rSellPrice, bool rSellTax, bool rBroker, bool rTargetPrice, bool rSuggest)
 int CalcWidget::d2i(double d){return int(d<0?d-.5:d+.5);}
+//void CalcWidget::recalc(bool rMSumCost, bool rBuyTax, bool rProdCost, bool rSumCost, bool rSellPrice, bool rSellTax, bool rBroker, bool rTargetPrice, bool rSuggest)
 void CalcWidget::recalc()
 {
 
-	bpConf->prodTime = d2i((prodBaseTime*(0.8+0.2/(1+bpConf->pe)))*(1-0.04*industrySkill));
+	bpConf->prodTime = d2i((bpConf->baseProdTime*(0.8+0.2/(1+bpConf->pe)))*(1-0.04*industrySkill));
 		
 	for (int i = 0; i<8; i++)
-		bpConf->cnt->insert(i, d2i(mBaseCnt->at(i)*(1+0.1/(bpConf->me+1))*(1.25-0.05*producteffSkill)));
+		bpConf->cnt->insert(i, d2i(bpConf->baseCnt->at(i)*(1+0.1/(bpConf->me+1))*(1.25-0.05*producteffSkill)));
 
 //	if ( rcSet[0] )
 //	{
@@ -178,7 +174,6 @@ void CalcWidget::recalc()
 
 	result->setProfit(sellPrice - sellTaxValue - brokerValue - sumCost);
 	bp->setBp(bpConf);
-
 }
 
 void CalcWidget::onCostChange(QVector<double>* v)
@@ -290,27 +285,9 @@ void CalcWidget::onIndustrySkillChange(int i)
 	recalc();
 }
 
-void CalcWidget::onBpMeChanged(int i)
-{
-	bpConf->me = i;
-	recalc();
-}
-
-void CalcWidget::onBpPeChanged(int i)
-{
-	bpConf->pe = i;
-	recalc();
-}
 void CalcWidget::onBpConfigChanged(BpConfig *c)
 {
 	bpConf = c;
-
-	for (int i = 0; i<8; i++)
-		mBaseCnt->insert(i, bpConf->cnt->at(i));
-	prodBaseTime = bpConf->prodTime;
-
-
-	bp->setBp(bpConf);
 	recalc();
 }
 
@@ -331,27 +308,13 @@ printf("%2d: %0.3f - %0.3f\n", cnt, d, o);
 void CalcWidget::onBpMenuAction(QString s)
 {
 	bpConf = conf->loadBlueprint(s);
-
-	for (int i = 0; i<8; i++)
-		mBaseCnt->insert(i, bpConf->cnt->at(i));
-	prodBaseTime = bpConf->prodTime;
-
-
-	bp->setBp(bpConf);
 	//recalc(1,1,1,1,1,1,1,1,1);
 	recalc();
 }
 
-void CalcWidget::onBpSaveClick()
+void CalcWidget::onBpSaveClick(BpConfig* c)
 {
-	BpConfig *cnf	= new BpConfig;
-	cnf = bpConf;
-	
-	for (int i = 0; i<8; i++)
-		cnf->cnt->insert(i, mBaseCnt->at(i));
-	cnf->prodTime = prodBaseTime;
-
-	conf->saveBlueprint(cnf);
+	conf->saveBlueprint(c);
 }
 
 void CalcWidget::onBpDelClick(QString s)

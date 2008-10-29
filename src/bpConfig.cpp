@@ -22,7 +22,8 @@
 BpConfig::BpConfig()
 {
 	cnt = new QVector<int>(8);
-	stackSize = prodTime = me = pe = 0;
+	baseCnt = new QVector<int>(8);
+	stackSize = prodTime = baseProdTime = me = pe = 0;
 }
 BpConfig::~BpConfig()
 {}

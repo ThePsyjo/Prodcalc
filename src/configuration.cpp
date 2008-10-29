@@ -188,6 +188,7 @@ int ConfigHandler::loadIndustrySkill()
 	return genTag ( doc->documentElement(), "Industry_Skill" ).attribute("value", "0").toInt();
 }
 
+///////////////////////  save/load Bp //////////////////////
 void ConfigHandler::saveBlueprint(BpConfig* c)
 {
 	bpConf = c;
@@ -201,7 +202,7 @@ void ConfigHandler::saveBlueprint(BpConfig* c)
 	blueprintTag.setAttribute("name", bpConf->name);
 
 //	tag = genTag( blueprintTag, "prodTime" );
-	blueprintTag.setAttribute("prodTime", bpConf->prodTime);
+	blueprintTag.setAttribute("prodTime", bpConf->baseProdTime);
 
 //	tag = genTag( blueprintTag, "stackSize" );
 	blueprintTag.setAttribute("stackSize", bpConf->stackSize);
@@ -215,14 +216,14 @@ void ConfigHandler::saveBlueprint(BpConfig* c)
 
 	QDomElement 
 	tag = genTag( blueprintTag, "minerals" );
-	tag.setAttribute("Tritanium",	bpConf->cnt->at(0));		
-	tag.setAttribute("Pyerite",	bpConf->cnt->at(1));		
-	tag.setAttribute("Mexallon",	bpConf->cnt->at(2));		
-	tag.setAttribute("Isogen",	bpConf->cnt->at(3));		
-	tag.setAttribute("Nocxium",	bpConf->cnt->at(4));		
-	tag.setAttribute("Zydrine",	bpConf->cnt->at(5));		
-	tag.setAttribute("Megacyte",	bpConf->cnt->at(6));		
-	tag.setAttribute("Morphite",	bpConf->cnt->at(7));
+	tag.setAttribute("Tritanium",	bpConf->baseCnt->at(0));		
+	tag.setAttribute("Pyerite",	bpConf->baseCnt->at(1));		
+	tag.setAttribute("Mexallon",	bpConf->baseCnt->at(2));		
+	tag.setAttribute("Isogen",	bpConf->baseCnt->at(3));		
+	tag.setAttribute("Nocxium",	bpConf->baseCnt->at(4));		
+	tag.setAttribute("Zydrine",	bpConf->baseCnt->at(5));		
+	tag.setAttribute("Megacyte",	bpConf->baseCnt->at(6));		
+	tag.setAttribute("Morphite",	bpConf->baseCnt->at(7));
 }
 
 BpConfig* ConfigHandler::loadBlueprint(QString name)
@@ -232,23 +233,23 @@ BpConfig* ConfigHandler::loadBlueprint(QString name)
 
 	QDomElement blueprintTag = genTag( genTag(doc->documentElement(), "Blueprints"), name.replace(' ', '_') ); // tag containing selected blueprints
 
-	bpConf->stackSize =  blueprintTag.attribute("stackSize", "100").toInt();
+	bpConf->stackSize =  blueprintTag.attribute("stackSize", "1").toInt();
 	bpConf->me =  blueprintTag.attribute("ME", "0").toInt();
 	bpConf->pe =  blueprintTag.attribute("PE", "0").toInt();
-	bpConf->prodTime =  blueprintTag.attribute("prodTime", "0").toInt();
+	bpConf->baseProdTime =  blueprintTag.attribute("prodTime", "0").toInt();
 
 	QDomElement 
 	tag = genTag ( blueprintTag, "minerals" );
 
-	bpConf->cnt->insert( 0, tag.attribute("Tritanium",	"0").toInt());
-	bpConf->cnt->insert( 1, tag.attribute("Pyerite",	"0").toInt());
-	bpConf->cnt->insert( 2, tag.attribute("Mexallon",	"0").toInt());
-	bpConf->cnt->insert( 3, tag.attribute("Isogen",		"0").toInt());
-	bpConf->cnt->insert( 4, tag.attribute("Nocxium",	"0").toInt());
-	bpConf->cnt->insert( 5, tag.attribute("Zydrine",	"0").toInt());
-	bpConf->cnt->insert( 6, tag.attribute("Megacyte",	"0").toInt());
-	bpConf->cnt->insert( 7, tag.attribute("Morphite",	"0").toInt());
-
+	bpConf->baseCnt->insert( 0, tag.attribute("Tritanium",	"0").toInt());
+	bpConf->baseCnt->insert( 1, tag.attribute("Pyerite",	"0").toInt());
+	bpConf->baseCnt->insert( 2, tag.attribute("Mexallon",	"0").toInt());
+	bpConf->baseCnt->insert( 3, tag.attribute("Isogen",	"0").toInt());
+	bpConf->baseCnt->insert( 4, tag.attribute("Nocxium",	"0").toInt());
+	bpConf->baseCnt->insert( 5, tag.attribute("Zydrine",	"0").toInt());
+	bpConf->baseCnt->insert( 6, tag.attribute("Megacyte",	"0").toInt());
+	bpConf->baseCnt->insert( 7, tag.attribute("Morphite",	"0").toInt());
+	
 	return bpConf;
 }
 

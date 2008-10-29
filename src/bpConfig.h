@@ -32,8 +32,10 @@ public:
 	~BpConfig();
 	QString name;
 	QVector<int>*cnt;
+	QVector<int>*baseCnt;
 	int stackSize;
 	int prodTime;
+	int baseProdTime;
 	int me;
 	int pe;
 };

@@ -39,21 +39,16 @@ Blueprint::Blueprint( QWidget * parent)
 	sbPe		= new QSpinBox (this);
 	sbMe		= new QSpinBox (this);
 
-	prodTime=0;
+	bpConf = new BpConfig;
 
 	sbMe->setMaximum(1000000);
 	sbPe->setMaximum(1000000);
-
-	hl = new QHBoxLayout;
 
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
 
 	layout->addWidget(lProdTime, 0, 3 );
 	layout->addWidget(lProdTimeV, 1, 3);
-
-
-	layout->addLayout(hl, 1, 3);
 
 	layout->addWidget(lStack,  2, 3);
 	layout->addWidget(lStackV, 3, 3);
@@ -64,9 +59,9 @@ Blueprint::Blueprint( QWidget * parent)
 	layout->addWidget(sbPe, 7, 3);
 
 	layout->addWidget(bpSelect, 0, 4);
-	layout->addWidget(delButton, 2, 4);
-	layout->addWidget(newButton, 3, 4);
-	layout->addWidget(saveButton, 4, 4);
+	layout->addWidget(newButton, 2, 4);
+	layout->addWidget(saveButton, 3, 4);
+	layout->addWidget(delButton, 4, 4);
 
 	adjustSize();
 
@@ -101,17 +96,18 @@ QString Blueprint::toStr(int i, QString ex)
 
 void Blueprint::setBp(BpConfig* c)
 {
+	bpConf = c;
+
 	bpSelect->setText(c->name);
 
 	for (int i = 0; i<8; i++)
 		cnt[i]->setText(toStr(c->cnt->at(i), ""));
 
-	prodTime=c->prodTime;
 	int d, h, m, s;
-	d    = unsigned( prodTime / 86400 );
-	h    = unsigned( prodTime - d * 86400) / 3600;
-	m    = unsigned( prodTime - d * 86400 - h * 3600 ) / 60;
-	s    = unsigned( prodTime - d * 86400 - h * 3600 - m * 60 );
+	d    = unsigned( c->prodTime / 86400 );
+	h    = unsigned( c->prodTime - d * 86400) / 3600;
+	m    = unsigned( c->prodTime - d * 86400 - h * 3600 ) / 60;
+	s    = unsigned( c->prodTime - d * 86400 - h * 3600 - m * 60 );
 	lProdTimeV->setText(toStr(d, " s, ") + toStr(h, " h, ") + toStr(m, " m, ") + toStr(s, " s"));
 
 	lStackV->setText(toStr(c->stackSize, ""));
@@ -120,23 +116,7 @@ void Blueprint::setBp(BpConfig* c)
 }
 
 BpConfig* Blueprint::getBp()
-{
-	BpConfig *bpConf = new BpConfig;
-	
-	bpConf->name = bpSelect->text();
-
-	for (int i = 0; i<8; i++)
-		bpConf->cnt->insert( i,	cnt[i]->text().toInt());
-
-//	bpConf->prodTime = llProdTimeV->text().toInt() * 86400 + llProdTimeV->text().toInt() * 3600 + llProdTimeV->text().toInt() * 60 + llProdTimeV->text().toInt();
-	bpConf->prodTime = prodTime;
-
-	bpConf->stackSize	= lStackV->text().toInt();
-	bpConf->me		= sbMe->value();
-	bpConf->pe		= sbPe->value();
-
-	return bpConf;
-}
+{	return bpConf;	}
 
 void Blueprint::setBpSelectBold(bool b)
 {
@@ -146,9 +126,7 @@ void Blueprint::setBpSelectBold(bool b)
 void Blueprint::onNewClick()
 {
 	BpConfig *c = new BpConfig;
-
 	BlueprintInputMask *input = new BlueprintInputMask(tr("add blueprint"), c, this);
-//	input->setStyleSheet(styleSheet());
 	input->show();
 	if(input->exec())
 	{
@@ -160,7 +138,7 @@ void Blueprint::onNewClick()
 
 void Blueprint::onSaveClick()
 {
-	emit saveBp();
+	emit saveBp(bpConf);
 	setBpSelectBold(0);
 }
 
@@ -168,23 +146,24 @@ void Blueprint::onDelClick()
 {
 	DelDialog *dialog = new DelDialog (tr("really?"), tr("Really remove \"%1\" ?").arg(bpSelect->text()), this);
 	dialog->show();
-	if(!dialog->exec())
+	if(dialog->exec())
 	{
-		return;
+		emit delBp(bpSelect->text());
+		setBpSelectBold(0);
+		bpSelect->setText(tr("Blueprint"));
 	}
-	emit delBp(bpSelect->text());
-	setBpSelectBold(0);
-	bpSelect->setText(tr("Blueprint"));
 }
 
 void Blueprint::onMeChange(int i)
 {
-	emit meChanged(i);
+	bpConf->me=i;
+	emit bpConfChanged(bpConf);
 	setBpSelectBold(1);
 }
 
 void Blueprint::onPeChange(int i)
 {
-	emit peChanged(i);
+	bpConf->pe=i;
+	emit bpConfChanged(bpConf);
 	setBpSelectBold(1);
 }
