@@ -4,7 +4,7 @@
 <context>
     <name>Blueprint</name>
     <message>
-        <location filename="blueprint.cpp" line="182"/>
+        <location filename="blueprint.cpp" line="185"/>
         <source>Blueprint</source>
         <translation>Blueprint</translation>
     </message>
@@ -24,7 +24,7 @@
         <translation>&amp;löschen</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="37"/>
+        <location filename="blueprint.cpp" line="35"/>
         <source>stack</source>
         <translation>Stapel größe</translation>
     </message>
@@ -41,12 +41,12 @@
         <translation type="obsolete">wirklich ?</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="155"/>
+        <location filename="blueprint.cpp" line="132"/>
         <source>add blueprint</source>
-        <translation>Neues Blueprint hinzufügen</translation>
+        <translation type="obsolete">Neues Blueprint hinzufügen</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="174"/>
+        <location filename="blueprint.cpp" line="179"/>
         <source>really?</source>
         <translation>wirklich ?</translation>
     </message>
@@ -61,45 +61,70 @@
         <translation type="obsolete">&quot; wirklich löschen ?</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="32"/>
+        <location filename="blueprint.cpp" line="33"/>
         <source>productiontime</source>
         <translation>Produktionsdauer</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="40"/>
+        <location filename="blueprint.cpp" line="38"/>
         <source>Production Level</source>
         <translation>Produktionseffiziens</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="41"/>
+        <location filename="blueprint.cpp" line="39"/>
         <source>Material Level</source>
         <translation>Materialeffiziens</translation>
     </message>
     <message>
-        <location filename="blueprint.cpp" line="174"/>
+        <location filename="blueprint.cpp" line="179"/>
         <source>Really remove &quot;%1&quot; ?</source>
         <translation>Das Blueprint &quot;%1&quot; wirklich löschen ?</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="31"/>
+        <source>&amp;modify</source>
+        <translation>än&amp;dern</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="168"/>
+        <source>mod blueprint</source>
+        <translation>Blueprint verändern</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="135"/>
+        <source>new blueprint</source>
+        <translation>Neues Blueprint hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="147"/>
+        <source>name collision</source>
+        <translation>Namenskollision</translation>
+    </message>
+    <message>
+        <location filename="blueprint.cpp" line="147"/>
+        <source>name &quot;%1&quot; already exists</source>
+        <translation>Blueprint &quot;%1&quot; existiert bereits</translation>
     </message>
 </context>
 <context>
     <name>BlueprintInputMask</name>
     <message>
-        <location filename="blueprintInputMask.cpp" line="42"/>
+        <location filename="blueprintInputMask.cpp" line="41"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="43"/>
+        <location filename="blueprintInputMask.cpp" line="42"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="45"/>
+        <location filename="blueprintInputMask.cpp" line="44"/>
         <source>productiontime</source>
         <translation>Produktionsdauer</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="61"/>
+        <location filename="blueprintInputMask.cpp" line="60"/>
         <source>stack</source>
         <translation>Stapel größe</translation>
     </message>
@@ -112,6 +137,11 @@
         <location filename="blueprintInputMask.cpp" line="66"/>
         <source>Material Level</source>
         <translation>Materialeffiziens</translation>
+    </message>
+    <message>
+        <location filename="blueprintInputMask.cpp" line="74"/>
+        <source>name</source>
+        <translation>Name</translation>
     </message>
 </context>
 <context>

@@ -35,7 +35,7 @@ class BlueprintInputMask : public MineralsDialog
 {
 Q_OBJECT
 public:
-	BlueprintInputMask(QString, BpConfig*, QWidget* = 0);
+	BlueprintInputMask(QString, BpConfig*, bool, QWidget* = 0);
 	virtual ~BlueprintInputMask();
 private:
 	QVector<QSpinBox*> *cntSb;
@@ -46,7 +46,7 @@ private:
 	QSpinBox *eStack;
 	QSpinBox *sbMe, *sbPe;
 	QLineEdit *eName;
-	BpConfig *c;
+	BpConfig *bpConf;
 private slots:
 	void onOkClick();
 };

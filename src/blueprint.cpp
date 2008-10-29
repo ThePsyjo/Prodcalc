@@ -28,6 +28,7 @@ Blueprint::Blueprint( QWidget * parent)
         saveButton	= new QPushButton (tr("&save"), this);
         newButton	= new QPushButton (tr("&new..."), this);
         delButton	= new QPushButton (tr("&delete"), this);
+        modButton	= new QPushButton (tr("&modify"), this);
 
 	lProdTime	= new QLabel(tr("productiontime"), this);
 	lProdTimeV	= new QLabel ("0", this);
@@ -60,8 +61,9 @@ Blueprint::Blueprint( QWidget * parent)
 
 	layout->addWidget(bpSelect, 0, 4);
 	layout->addWidget(newButton, 2, 4);
-	layout->addWidget(saveButton, 3, 4);
-	layout->addWidget(delButton, 4, 4);
+	layout->addWidget(modButton, 3, 4);
+	layout->addWidget(saveButton, 4, 4);
+	layout->addWidget(delButton, 5, 4);
 
 	adjustSize();
 
@@ -69,6 +71,7 @@ Blueprint::Blueprint( QWidget * parent)
 	connect(saveButton	, SIGNAL(clicked()), this, SLOT(onSaveClick()));
 	connect(newButton	, SIGNAL(clicked()), this, SLOT(onNewClick()));
 	connect(delButton	, SIGNAL(clicked()), this, SLOT(onDelClick()));
+	connect(modButton	, SIGNAL(clicked()), this, SLOT(onModClick()));
 
 	connect(sbMe		, SIGNAL(valueChanged(int)), this, SLOT(onMeChange(int)));
 	connect(sbPe		, SIGNAL(valueChanged(int)), this, SLOT(onPeChange(int)));
@@ -126,9 +129,27 @@ void Blueprint::setBpSelectBold(bool b)
 void Blueprint::onNewClick()
 {
 	BpConfig *c = new BpConfig;
-	BlueprintInputMask *input = new BlueprintInputMask(tr("add blueprint"), c, this);
-	input->show();
-	if(input->exec())
+	bool ready, done;
+	do
+	{
+		BlueprintInputMask input(tr("new blueprint"), c, false, this);
+		input.show();
+		done = input.exec();
+		ready = true;
+
+		if(done)
+		{
+			for ( int i = 0; i < bpSelectMenu->actions().count(); i++ )	//
+			{								// check if name already exists
+				if(bpSelectMenu->actions().at(i)->text()==c->name)	//
+				{							//
+					ready = false;					//
+					QMessageBox::warning(this, tr("name collision"), tr("name \"%1\" already exists").arg(c->name));
+				}							//
+			}								//
+		}
+	}while(!ready);
+	if(done)
 	{
 		emit bpConfChanged(c);
 		bpSelectMenu->addAction(c->name);
@@ -140,6 +161,17 @@ void Blueprint::onSaveClick()
 {
 	emit saveBp(bpConf);
 	setBpSelectBold(0);
+}
+
+void Blueprint::onModClick()
+{
+	BlueprintInputMask *input = new BlueprintInputMask(tr("mod blueprint"), bpConf, true, this);
+	input->show();
+	if(input->exec())
+	{
+		emit bpConfChanged(bpConf);
+		setBpSelectBold(1);
+	}
 }
 
 void Blueprint::onDelClick()

@@ -28,6 +28,7 @@
 #include <QString>
 #include <QSpinBox>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include "mineralCnt.h"
 #include "bpConfig.h"
@@ -41,7 +42,7 @@ public:
 	Blueprint(QWidget*);
 	virtual ~Blueprint();
 private:
-	QPushButton *bpSelect, *saveButton, *newButton, *delButton;
+	QPushButton *bpSelect, *saveButton, *newButton, *delButton, *modButton;
 	QLabel *lStack, *lProdTime, *lPe, *lMe; // descripter
 	QLabel *lProdTimeV, *lStackV; // value holder
 	QSpinBox *sbPe, *sbMe;
@@ -54,6 +55,7 @@ private slots:
 	void onSaveClick();
 	void onNewClick();
 	void onDelClick();
+	void onModClick();
 	void onMeChange(int);
 	void onPeChange(int);
 signals:

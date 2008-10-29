@@ -19,14 +19,13 @@
 
 #include "blueprintInputMask.h"
 
-BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *cnf, QWidget* parent )
+BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, QWidget* parent )
 {
 	setParent(parent);
 	setWindowFlags(Qt::Dialog);
 	setWindowTitle(name);
 	setModal(1);
-	c = cnf;
-	//setModal(true);
+	bpConf = c;
 
 	cntSb = new QVector<QSpinBox*>(8);
 	sbData = cntSb->data();
@@ -34,8 +33,8 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *cnf, QWidget* pa
 	for (int i=0;i<8;i++)
 	{
 		sbData[i] = new QSpinBox (this);
-		sbData[i]->setValue(c->cnt->at(i));
 		sbData[i]->setMaximum(1000000); // 1 mio
+		sbData[i]->setValue(bpConf->baseCnt->at(i));
 		layout->addWidget(sbData[i], i, 2);
 	}
 
@@ -45,10 +44,10 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *cnf, QWidget* pa
 	lDuration	= new QLabel(tr("productiontime"), this);
 
 	int d, h, m, s;
-	d = unsigned( c->prodTime / 86400 );
-	h = unsigned( c->prodTime - d * 86400) / 3600;
-	m = unsigned( c->prodTime - d * 86400 - h * 3600 ) / 60;
-	s = unsigned( c->prodTime - d * 86400 - h * 3600 - m * 60 );
+	d = unsigned( bpConf->baseProdTime / 86400 );
+	h = unsigned( bpConf->baseProdTime - d * 86400) / 3600;
+	m = unsigned( bpConf->baseProdTime - d * 86400 - h * 3600 ) / 60;
+	s = unsigned( bpConf->baseProdTime - d * 86400 - h * 3600 - m * 60 );
 
 	eDurations	= new QSpinBox (this);
 	eDurationm	= new QSpinBox (this);
@@ -60,20 +59,25 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *cnf, QWidget* pa
 	eDurationd->setValue(d);
 	lStack 		= new QLabel(tr("stack"));
 	eStack		= new QSpinBox (this);
-	eStack->setValue(c->stackSize);
+	eStack->setMaximum(1000000); // 1mio
+	eStack->setValue(bpConf->stackSize);
 
 	lPe  = new QLabel (tr("Production Level"), this);
 	lMe  = new QLabel (tr("Material Level"), this);
 	sbPe = new QSpinBox (this);
 	sbMe = new QSpinBox (this);
-	sbMe->setValue(c->me);
-	sbPe->setValue(c->pe);
+	sbMe->setMaximum(1000000);
+	sbPe->setMaximum(1000000);
+	sbMe->setValue(bpConf->me);
+	sbPe->setValue(bpConf->pe);
 
-	lName = new QLabel("name", this);
+	lName = new QLabel(tr("name"), this);
 	eName = new QLineEdit(this);
-	eName->setText(c->name);
+	eName->setReadOnly(nameRo);
+//	eName->setMaxLength(32);
+//	eName->setMinimumWidth(200);
+	eName->setText(bpConf->name);
 
-	eStack->setMaximum(1000000); // 1mio
 
 	eDurationd->setSuffix("d");
 	eDurationd->setMaximum(20);
@@ -120,14 +124,14 @@ void BlueprintInputMask::onOkClick()
 		lName->setStyleSheet("color:red;");
 		return;
 	}
-	c->name      = eName->text();
+	bpConf->name      = eName->text();
 
 	for (int i=0;i<8;i++)
-		c->cnt->insert(i, sbData[i]->value());
-	c->prodTime  = eDurationd->value() * 86400 + eDurationh->value() * 3600 + eDurationm->value() * 60 + eDurations->value();
-	c->stackSize = eStack->value();
-	c->me        = sbMe->value();
-	c->pe        = sbPe->value();
+		bpConf->baseCnt->insert(i, sbData[i]->value());
+	bpConf->baseProdTime  = eDurationd->value() * 86400 + eDurationh->value() * 3600 + eDurationm->value() * 60 + eDurations->value();
+	bpConf->stackSize = eStack->value();
+	bpConf->me        = sbMe->value();
+	bpConf->pe        = sbPe->value();
 	accept();
 }
 
