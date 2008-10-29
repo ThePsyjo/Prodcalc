@@ -33,7 +33,7 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 	for (int i=0;i<8;i++)
 	{
 		sbData[i] = new QSpinBox (this);
-		sbData[i]->setMaximum(1000000); // 1 mio
+		sbData[i]->setMaximum(1000000000); //  1bio
 		sbData[i]->setValue(bpConf->baseCnt->at(i));
 		layout->addWidget(sbData[i], i, 2);
 	}
