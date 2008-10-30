@@ -48,22 +48,22 @@ Blueprint::Blueprint( QWidget * parent)
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
 
-	layout->addWidget(lProdTime, 0, 4);
-	layout->addWidget(lProdTimeV, 1, 4);
+	layout->addWidget(lProdTime, 0, 3);
+	layout->addWidget(lProdTimeV, 1, 3);
 
-	layout->addWidget(lStack,  2, 4);
-	layout->addWidget(lStackV, 3, 4);
+	layout->addWidget(lStack,  2, 3);
+	layout->addWidget(lStackV, 3, 3);
 
-	layout->addWidget(lMe,  4, 4);
-	layout->addWidget(sbMe, 5, 4);
-	layout->addWidget(lPe,  6, 4);
-	layout->addWidget(sbPe, 7, 4);
+	layout->addWidget(lMe,  4, 3);
+	layout->addWidget(sbMe, 5, 3);
+	layout->addWidget(lPe,  6, 3);
+	layout->addWidget(sbPe, 7, 3);
 
-	layout->addWidget(bpSelect, 0, 5);
-	layout->addWidget(newButton, 2, 5);
-	layout->addWidget(modButton, 3, 5);
-	layout->addWidget(saveButton, 4, 5);
-	layout->addWidget(delButton, 5, 5);
+	layout->addWidget(bpSelect, 0, 4);
+	layout->addWidget(newButton, 2, 4);
+	layout->addWidget(modButton, 3, 4);
+	layout->addWidget(saveButton, 4, 4);
+	layout->addWidget(delButton, 5, 4);
 
 	adjustSize();
 

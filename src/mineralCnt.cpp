@@ -31,7 +31,6 @@ MineralCnt::MineralCnt( QWidget * parent)
 	{
 		cnt[i] = new QLabel ("0", this);
 		layout->addWidget(cnt[i], i, 2);
-		cnt[i]->adjustSize();
 	}
 	
 	adjustSize();
