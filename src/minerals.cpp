@@ -65,7 +65,7 @@ Minerals::Minerals( QWidget * parent)
 		widData[i]->setMaximumSize(30,30);
 		widData[i]->setStyleSheet(styleMap->take(i));
 		layout->addWidget( widData[i], i, 0);
-		layout->addWidget( lbData[i], i, 1);
+		layout->addWidget( lbData[i], i, 1, Qt::AlignCenter);
 	}
 
 	
