@@ -18,40 +18,33 @@
  ************************************************************************/
 
 #include "configuration.h"
-#include <QMessageBox>
 
 ConfigHandler::ConfigHandler()
 {
 	doc = new QDomDocument ( "ConfigFile" );
 	f = new QFile (QDir::toNativeSeparators(QDir::homePath ()  + "/.prodcalc.xml"));
 	bpConf = new BpConfig;
+	saveOnExit = true;
 
 	f->open( QIODevice::ReadOnly );
 
-	//doc->setContent(f);
-	//
 	QString errorStr;
 	int errorLine;
 	int errorColumn;
 
 	if (f->exists() && !doc->setContent(f, true, &errorStr, &errorLine, &errorColumn))
 	{
-		QMessageBox::information(NULL, tr("parse error"),
-						tr("Parse error at line %1, column %2:\n%3")
+		QMessageBox::warning(NULL, tr("parse error"),
+						tr("Parse error at line %1, column %2:\n\"%3\"\n\nconfig will not be written")
 						.arg(errorLine)
 						.arg(errorColumn)
 						.arg(errorStr));
+		saveOnExit = false;
 	}
-
-
-
 	f->close();
 
 	if ( ! (doc->documentElement().tagName() == "ProdCalcConfig") )
 	{
-#ifdef DEBUG
-		puts("create new root");
-#endif
 		QDomElement root = doc->createElement("ProdCalcConfig");
 		doc->appendChild(root);
 		QMessageBox::information(NULL, "info", tr("configuration created in %1.").arg(f->fileName()));
@@ -60,13 +53,13 @@ ConfigHandler::ConfigHandler()
 
 ConfigHandler::~ConfigHandler()
 {
-#ifdef DEBUG
-	puts("save");
-#endif
-	f->open( QIODevice::WriteOnly );
-	QTextStream stream( f );
-	doc->save(stream,3);
-	f->close();
+	if(saveOnExit)
+	{
+		f->open( QIODevice::WriteOnly );
+		QTextStream stream( f );
+		doc->save(stream,3);
+		f->close();
+	}
 };
 
 QDomElement ConfigHandler::genTag(QDomElement inMe, QString tagInMe)

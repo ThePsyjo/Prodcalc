@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QVector>
 #include <QString>
+#include <QMessageBox>
 
 #include "bpConfig.h"
 
@@ -52,7 +53,7 @@ private:
 	QFile *f;
 	BpConfig *bpConf;
 	QDomElement genTag(QDomElement, QString);
-	bool tagCreated;
+	bool tagCreated, saveOnExit;
 public slots:
 	// save functs
 	void delBlueprint(QString);

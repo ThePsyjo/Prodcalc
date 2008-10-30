@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
-<defaultcodec></defaultcodec>
 <context>
     <name>Blueprint</name>
     <message>
@@ -147,7 +146,7 @@
 <context>
     <name>ConfigHandler</name>
     <message>
-        <location filename="configuration.cpp" line="39"/>
+        <location filename="configuration.cpp" line="37"/>
         <source>parse error</source>
         <translation>Parser Fehler</translation>
     </message>
@@ -155,13 +154,24 @@
         <location filename="configuration.cpp" line="41"/>
         <source>Parse error at line %1, column %2:
 %3</source>
-        <translation>Parser Fehler auf Zeile %1, Spalte %2
+        <translation type="obsolete">Parser Fehler auf Zeile %1, Spalte %2
 %3</translation>
     </message>
     <message>
-        <location filename="configuration.cpp" line="57"/>
+        <location filename="configuration.cpp" line="50"/>
         <source>configuration created in %1.</source>
         <translation>Konfigurationsdatei %1 erstellt.</translation>
+    </message>
+    <message>
+        <location filename="configuration.cpp" line="39"/>
+        <source>Parse error at line %1, column %2:
+&quot;%3&quot;
+
+config will not be written</source>
+        <translation>Parserfehler auf Zeile %1, Spalte %2:
+&quot;%3&quot;
+
+Konfiguration wird nicht gespeichert</translation>
     </message>
 </context>
 <context>

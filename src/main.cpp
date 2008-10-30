@@ -19,6 +19,7 @@
 
 #include <QApplication>
 #include <QTranslator>
+#include <QMessageBox>
 #include "window.h"
 
 #include <QCleanlooksStyle>
@@ -29,7 +30,13 @@ int main(int argc, char ** argv)
 
 	QTranslator translator;
 	//printf("%s\n", QLocale::languageToString(QLocale::system().language()).toAscii().data());
-	translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language()));
+	if(! translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language())))
+		if(! translator.load(QCoreApplication::applicationDirPath() + "/res/English.qm"))
+		{
+			QMessageBox::warning(NULL, "Error", "Error while loading language.\nCheck whether ./res/[(English)(German)(C)].qm is available!");
+			return 1;
+		}
+
 	app.installTranslator(&translator);
 
 	app.setWindowIcon(QIcon(QDir::toNativeSeparators(QCoreApplication::applicationDirPath() + "/res/isk1.png")));
