@@ -1,0 +1,23 @@
+<!DOCTYPE ConfigFile>
+<ProdCalcConfig>
+   <Blueprints>
+      <Wrath_CM PE="0" ME="0" stackSize="100" name="Wrath CM" prodTime="300" >
+         <minerals Pyerite="130" Morphite="0" Zydrine="2" Mexallon="15" Nocxium="2" Isogen="0" Tritanium="1680" Megacyte="0" />
+      </Wrath_CM>
+      <Paradise_CM PE="0" ME="0" stackSize="100" name="Paradise CM" prodTime="300" >
+         <minerals Pyerite="425" Morphite="0" Zydrine="2" Mexallon="61" Nocxium="2" Isogen="0" Tritanium="2776" Megacyte="0" />
+      </Paradise_CM>
+      <Multispectral_Probe PE="0" ME="0" stackSize="1" name="Multispectral Probe" prodTime="120" >
+         <minerals Pyerite="16" Morphite="0" Zydrine="0" Mexallon="16" Nocxium="5" Isogen="3" Tritanium="5" Megacyte="2" />
+      </Multispectral_Probe>
+      <Devastator_CM PE="0" ME="0" stackSize="100" name="Devastator CM" prodTime="300" >
+         <minerals Pyerite="0" Morphite="0" Zydrine="1" Mexallon="73" Nocxium="0" Isogen="4" Tritanium="1302" Megacyte="0" />
+      </Devastator_CM>
+      <Cataclysm_CM PE="0" ME="0" stackSize="100" name="Cataclysm CM" prodTime="300" >
+         <minerals Pyerite="636" Morphite="0" Zydrine="2" Mexallon="0" Nocxium="0" Isogen="0" Tritanium="1658" Megacyte="0" />
+      </Cataclysm_CM>
+      <Raven PE="0" ME="0" stackSize="1" name="Raven" prodTime="18000" >
+         <minerals Pyerite="1894802" Morphite="0" Zydrine="7060" Mexallon="474675" Nocxium="29595" Isogen="118519" Tritanium="7577632" Megacyte="2254" />
+      </Raven>
+   </Blueprints>
+</ProdCalcConfig>

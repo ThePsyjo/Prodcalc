@@ -33,7 +33,7 @@ class ConfigHandler : public QObject
 {
 Q_OBJECT
 public:
-	ConfigHandler();
+	ConfigHandler(QString);
 	virtual ~ConfigHandler();
 
 	// load functs

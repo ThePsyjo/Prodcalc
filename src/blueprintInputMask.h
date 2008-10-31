@@ -21,6 +21,7 @@
 #define BLUEPRINT_INPUT_H
 
 #include <QPushButton>
+#include <QMenu>
 #include <QLineEdit>
 #include <QLabel>
 #include <QVector>
@@ -30,17 +31,20 @@
 
 #include "mineralsDialog.h"
 #include "bpConfig.h"
+#include "configuration.h"
 
 class BlueprintInputMask : public MineralsDialog
 {
 Q_OBJECT
 public:
-	BlueprintInputMask(QString, BpConfig*, bool, QWidget* = 0);
+	BlueprintInputMask(QString, BpConfig*, bool, bool, QWidget* = 0);
 	virtual ~BlueprintInputMask();
 private:
+	ConfigHandler *conf;
 	QVector<QSpinBox*> *cntSb;
 	QSpinBox **sbData;
-	QPushButton *okButton, *cancelButton;
+	QPushButton *okButton, *cancelButton, *templateButton;
+	QMenu *templateMenu;
 	QLabel *lStack, *lDuration, *lMe, *lPe, *lName;
 	QSpinBox *eDurationd, *eDurationh, *eDurationm, *eDurations;
 	QSpinBox *eStack;
@@ -49,6 +53,7 @@ private:
 	BpConfig *bpConf;
 private slots:
 	void onOkClick();
+	void onTemplateMenuAction(QAction*);
 };
 
 

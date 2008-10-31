@@ -19,10 +19,10 @@
 
 #include "configuration.h"
 
-ConfigHandler::ConfigHandler()
+ConfigHandler::ConfigHandler(QString fileLocation)
 {
 	doc = new QDomDocument ( "ConfigFile" );
-	f = new QFile (QDir::toNativeSeparators(QDir::homePath ()  + "/.prodcalc.xml"));
+	f = new QFile (fileLocation);
 	bpConf = new BpConfig;
 	saveOnExit = true;
 
@@ -35,10 +35,11 @@ ConfigHandler::ConfigHandler()
 	if (f->exists() && !doc->setContent(f, true, &errorStr, &errorLine, &errorColumn))
 	{
 		QMessageBox::warning(NULL, tr("parse error"),
-						tr("Parse error at line %1, column %2:\n\"%3\"\n\nconfig will not be written")
+						tr("Parse error in file %4:\nat line %1, column %2:\n\"%3\"\n\nconfig will not be written")
 						.arg(errorLine)
 						.arg(errorColumn)
-						.arg(errorStr));
+						.arg(errorStr)
+						.arg(fileLocation));
 		saveOnExit = false;
 	}
 	f->close();

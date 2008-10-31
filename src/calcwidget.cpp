@@ -33,7 +33,7 @@ CalcWidget::CalcWidget( QWidget * parent)
 	install = rental = sellTaxValue = buyTaxValue = brokerValue = others = targetUnitCost = targetRunPrice = targetNRunPrice = mSumCost = sellPrice = prodCost = sumCost = 0;
 	runs = cnt = industrySkill = producteffSkill = 0;
 
-	conf = new ConfigHandler;
+	conf = new ConfigHandler(QDir::toNativeSeparators(QDir::homePath ()  + "/.prodcalc.xml"));
 
 	parent->setStyleSheet(conf->loadStyleSheet());
 	
@@ -90,90 +90,58 @@ CalcWidget::CalcWidget( QWidget * parent)
 }
 
 int CalcWidget::d2i(double d){return int(d<0?d-.5:d+.5);}
-//void CalcWidget::recalc(bool rMSumCost, bool rBuyTax, bool rProdCost, bool rSumCost, bool rSellPrice, bool rSellTax, bool rBroker, bool rTargetPrice, bool rSuggest)
 void CalcWidget::recalc()
 {
+//   reduce overhead here :/
 
 	bpConf->prodTime = d2i((bpConf->baseProdTime*(0.8+0.2/(1+bpConf->pe)))*(1-0.04*industrySkill));
-		
 	for (int i = 0; i<8; i++)
 		bpConf->cnt->insert(i, d2i(bpConf->baseCnt->at(i)*(1+0.1/(bpConf->me+1))*(1.25-0.05*producteffSkill)));
-
-//	if ( rcSet[0] )
-//	{
-		mSumCost = 0;
-		for (int i = 0; i<8; i++)
-			mSumCost += mCost->at(i) * bpConf->cnt->at(i);
-		mSumCost *= runs;
-		result->setBuy(mSumCost);
-//	}
-		
-//	if(rcSet[1])
-//	{
-		buyTaxValue = mSumCost * (buyTax/100);
-		result->setBuyTax(buyTaxValue);
-//	}
-//	if(rcSet[2])
-//	{
-		prodCost = others + install + rental * ((bpConf->prodTime * runs) / 3600);
-		result->setProd(prodCost);
-	        int d, h, m, s;
-	        d = unsigned( ( bpConf->prodTime * runs ) / 86400 );
-	        h = unsigned( ( bpConf->prodTime * runs ) - d * 86400) / 3600;
-	        m = unsigned( ( bpConf->prodTime * runs ) - d * 86400 - h * 3600 ) / 60;
-	        s = unsigned( ( bpConf->prodTime * runs ) - d * 86400 - h * 3600 - m * 60 );
-		result->setTotalProdTime(d,h,m,s);
-//	}
-//	if(rcSet[3])
-//	{
-		sumCost = prodCost + mSumCost + buyTaxValue;
-		result->setCost(sumCost);
-//	}
-//	if(rcSet[4])
-//	{
-		sellPrice = targetUnitCost * runs * bpConf->stackSize;
-		result->setSell(sellPrice);
-		result->setTotalUnits(runs*bpConf->stackSize);
-//	}
-//	if(rcSet[5])
-//	{
-		sellTaxValue = sellPrice * (sellTax/100);
-		result->setSellTax(sellTaxValue);
-//	}
-//	if(rcSet[6])
-//	{
-		brokerValue = sellPrice * (broker/100);
-		result->setBrokerTax(brokerValue);
-//	}
-//	if(rcSet[7])
-//	{
-       		targetRunPrice = targetUnitCost * bpConf->stackSize;
-	        targetNRunPrice = targetRunPrice * runs;
-		result->setTargetUnitCost(targetUnitCost);
-		result->setTargetRunPrice(targetRunPrice);
-		result->setTargetNRunPrice(targetNRunPrice);
-//	}
-//	if(rcSet[8])
-//	{
-		suggest=calcSuggest(0,sumCost);
-		result->setMinUnitCost(( runs == 0 || bpConf->stackSize == 0 ) ?  0 : suggest / runs / bpConf->stackSize );
-		result->setMinRunCost(( runs == 0 ) ?  0 : suggest / runs );
-		result->setMinNRunCost( suggest	);
-//	}
-
-//	if(rcSet[9])
-//	{
-//	}
-
-//	suggest=(
-//	    	  (
-//		    sumCost * (1+broker/100) * (1+sellTax/100)		// geil wa !?!
-//		    * (1+broker/100) * (1+sellTax/100)
-//		  ) - sumCost * (1+broker/100) * (1+sellTax/100)
-//		) + sumCost;
-
-	result->setProfit(sellPrice - sellTaxValue - brokerValue - sumCost);
 	bp->setBp(bpConf);
+	//
+	mSumCost = 0;
+	for (int i = 0; i<8; i++)
+		mSumCost += mCost->at(i) * bpConf->cnt->at(i);
+	mSumCost *= runs;
+	result->setBuy(mSumCost);
+	//	
+	buyTaxValue = mSumCost * (buyTax/100);
+	result->setBuyTax(buyTaxValue);
+	//
+	prodCost = others + install + rental * ((bpConf->prodTime * runs) / 3600);
+	result->setProd(prodCost);
+	int d, h, m, s;
+	d = unsigned( ( bpConf->prodTime * runs ) / 86400 );
+	h = unsigned( ( bpConf->prodTime * runs ) - d * 86400) / 3600;
+	m = unsigned( ( bpConf->prodTime * runs ) - d * 86400 - h * 3600 ) / 60;
+	s = unsigned( ( bpConf->prodTime * runs ) - d * 86400 - h * 3600 - m * 60 );
+	result->setTotalProdTime(d,h,m,s);
+	//
+	sumCost = prodCost + mSumCost + buyTaxValue;
+	result->setCost(sumCost);
+	//
+	sellPrice = targetUnitCost * runs * bpConf->stackSize;
+	result->setSell(sellPrice);
+	result->setTotalUnits(runs*bpConf->stackSize);
+	//
+	sellTaxValue = sellPrice * (sellTax/100);
+	result->setSellTax(sellTaxValue);
+	//
+	brokerValue = sellPrice * (broker/100);
+	result->setBrokerTax(brokerValue);
+	//
+       	targetRunPrice = targetUnitCost * bpConf->stackSize;
+	targetNRunPrice = targetRunPrice * runs;
+	result->setTargetUnitCost(targetUnitCost);
+	result->setTargetRunPrice(targetRunPrice);
+	result->setTargetNRunPrice(targetNRunPrice);
+	//
+	suggest=calcSuggest(0,sumCost);
+	result->setMinUnitCost(( runs == 0 || bpConf->stackSize == 0 ) ?  0 : suggest / runs / bpConf->stackSize );
+	result->setMinRunCost(( runs == 0 ) ?  0 : suggest / runs );
+	result->setMinNRunCost( suggest	);
+	//
+	result->setProfit(sellPrice - sellTaxValue - brokerValue - sumCost);
 }
 
 void CalcWidget::onCostChange(QVector<double>* v)

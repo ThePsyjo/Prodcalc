@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
+<defaultcodec></defaultcodec>
 <context>
     <name>Blueprint</name>
     <message>
@@ -118,29 +119,34 @@
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="44"/>
+        <location filename="blueprintInputMask.cpp" line="45"/>
         <source>productiontime</source>
         <translation>Produktionsdauer</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="60"/>
+        <location filename="blueprintInputMask.cpp" line="61"/>
         <source>stack</source>
         <translation>Stapel größe</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="65"/>
+        <location filename="blueprintInputMask.cpp" line="66"/>
         <source>Production Level</source>
         <translation>Produktionseffiziens</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="66"/>
+        <location filename="blueprintInputMask.cpp" line="67"/>
         <source>Material Level</source>
         <translation>Materialeffiziens</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="74"/>
+        <location filename="blueprintInputMask.cpp" line="75"/>
         <source>name</source>
         <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="blueprintInputMask.cpp" line="119"/>
+        <source>&amp;template</source>
+        <translation>&amp;Vorlage</translation>
     </message>
 </context>
 <context>
@@ -158,17 +164,19 @@
 %3</translation>
     </message>
     <message>
-        <location filename="configuration.cpp" line="50"/>
+        <location filename="configuration.cpp" line="51"/>
         <source>configuration created in %1.</source>
         <translation>Konfigurationsdatei %1 erstellt.</translation>
     </message>
     <message>
         <location filename="configuration.cpp" line="39"/>
-        <source>Parse error at line %1, column %2:
+        <source>Parse error in file %4:
+at line %1, column %2:
 &quot;%3&quot;
 
 config will not be written</source>
-        <translation>Parserfehler auf Zeile %1, Spalte %2:
+        <translation>Parserfehler in Datei %4:
+auf Zeile %1, Spalte %2:
 &quot;%3&quot;
 
 Konfiguration wird nicht gespeichert</translation>

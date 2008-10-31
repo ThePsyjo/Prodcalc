@@ -132,7 +132,7 @@ void Blueprint::onNewClick()
 	bool ready, done;
 	do
 	{
-		BlueprintInputMask input(tr("new blueprint"), c, false, this);
+		BlueprintInputMask input(tr("new blueprint"), c, false, true,  this);
 		input.show();
 		done = input.exec();
 		ready = true;
@@ -165,7 +165,7 @@ void Blueprint::onSaveClick()
 
 void Blueprint::onModClick()
 {
-	BlueprintInputMask *input = new BlueprintInputMask(tr("mod blueprint"), bpConf, true, this);
+	BlueprintInputMask *input = new BlueprintInputMask(tr("mod blueprint"), bpConf, true, false, this);
 	input->show();
 	if(input->exec())
 	{

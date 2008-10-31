@@ -19,7 +19,7 @@
 
 #include "blueprintInputMask.h"
 
-BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, QWidget* parent )
+BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, bool templateList,  QWidget* parent )
 {
 	setParent(parent);
 	setWindowFlags(Qt::Dialog);
@@ -40,6 +40,7 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 
         okButton	= new QPushButton (tr("&OK"), this);
         cancelButton	= new QPushButton (tr("&Cancel"), this);
+
 
 	lDuration	= new QLabel(tr("productiontime"), this);
 
@@ -95,7 +96,6 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 	layout->addWidget(eDurationm, 1, 5);
 	layout->addWidget(eDurations, 1, 6);
 
-
 	layout->addWidget(lStack, 2, 3, 1, 4);
 	layout->addWidget(eStack, 3, 3, 1, 4);
 	layout->addWidget(lMe, 4, 3, 1, 4);
@@ -103,15 +103,35 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 	layout->addWidget(lPe, 6, 3, 1, 4);
 	layout->addWidget(sbPe, 7, 3, 1, 4);
 
-	layout->addWidget(lName, 1, 7);
-	layout->addWidget(eName, 2, 7);
+	layout->addWidget(lName, 0, 7);
+	layout->addWidget(eName, 1, 7);
 	layout->addWidget(okButton, 6, 7);
 	layout->addWidget(cancelButton, 7, 7);
 
-	adjustSize();
 
 	connect(okButton	, SIGNAL(clicked()), this, SLOT(onOkClick()));
 	connect(cancelButton	, SIGNAL(clicked()), this, SLOT(reject()));
+
+	if(templateList)
+	{
+		conf = new ConfigHandler(QCoreApplication::applicationDirPath() + "/res/template.xml");
+
+		templateButton	= new QPushButton(tr("&template"), this);
+		templateMenu	= new QMenu(this);
+
+		templateButton->setMinimumWidth(120);
+		templateButton->setMenu(templateMenu);
+
+        	templateMenu->clear();
+	        foreach(QString s, conf->loadBpList())
+	                templateMenu->addAction(s);
+		
+		layout->addWidget(templateButton, 3, 7);
+
+		connect(templateMenu	, SIGNAL(triggered(QAction*)),	this, SLOT(onTemplateMenuAction(QAction*)));
+	}
+
+	adjustSize();
 }
 
 BlueprintInputMask::~BlueprintInputMask()
@@ -135,3 +155,30 @@ void BlueprintInputMask::onOkClick()
 	accept();
 }
 
+void BlueprintInputMask::onTemplateMenuAction(QAction* a)
+{
+	BpConfig *c = new BpConfig;
+	c = conf->loadBlueprint(a->text());
+	// conf->loadBp would destroy bpConf pointer
+
+	eName->setText(c->name);
+
+	for (int i=0;i<8;i++)
+		sbData[i]->setValue(c->baseCnt->at(i));
+
+	int d, h, m, s;
+	d = unsigned( c->baseProdTime / 86400 );
+	h = unsigned( c->baseProdTime - d * 86400) / 3600;
+	m = unsigned( c->baseProdTime - d * 86400 - h * 3600 ) / 60;
+	s = unsigned( c->baseProdTime - d * 86400 - h * 3600 - m * 60 );
+
+	eDurations->setValue(s);
+	eDurationm->setValue(m);
+	eDurationh->setValue(h);
+	eDurationd->setValue(d);
+
+	eStack->setValue(c->stackSize);
+
+	sbMe->setValue(c->me);
+	sbPe->setValue(c->pe);
+}
