@@ -1,0 +1,8 @@
+<!DOCTYPE ConfigFile>
+<ProdCalcConfig>
+   <Blueprints>
+      <Multispectral_Probe PE="0" ME="0" stackSize="1" name="Multispectral Probe" prodTime="120" >
+         <minerals Pyerite="16" Morphite="0" Zydrine="0" Mexallon="16" Nocxium="5" Isogen="3" Tritanium="5" Megacyte="2" />
+      </Multispectral_Probe>
+   </Blueprints>
+</ProdCalcConfig>

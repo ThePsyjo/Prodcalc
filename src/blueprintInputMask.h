@@ -43,8 +43,8 @@ private:
 	ConfigHandler *conf;
 	QVector<QSpinBox*> *cntSb;
 	QSpinBox **sbData;
-	QPushButton *okButton, *cancelButton, *templateButton;
-	QMenu *templateMenu;
+	QPushButton *okButton, *cancelButton, *templateButton, *templateFileButton;
+	QMenu *templateMenu, *templateFileMenu;
 	QLabel *lStack, *lDuration, *lMe, *lPe, *lName;
 	QSpinBox *eDurationd, *eDurationh, *eDurationm, *eDurations;
 	QSpinBox *eStack;
@@ -54,6 +54,7 @@ private:
 private slots:
 	void onOkClick();
 	void onTemplateMenuAction(QAction*);
+	void onTemplateFileMenuAction(QAction*);
 };
 
 

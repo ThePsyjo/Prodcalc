@@ -114,21 +114,37 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 
 	if(templateList)
 	{
-		conf = new ConfigHandler(QCoreApplication::applicationDirPath() + "/res/template.xml");
+		conf = new ConfigHandler(QCoreApplication::applicationDirPath()
+					+ "/res/templates/"
+					+ QDir(QCoreApplication::applicationDirPath() + "/res/templates/", "*.xml").entryList().at(0));
+		// take first templatefile in templates/
 
-		templateButton	= new QPushButton(tr("&template"), this);
+		templateButton		= new QPushButton(tr("&template"), this);
+		templateFileButton	= new QPushButton(tr("&template file"), this);
 		templateMenu	= new QMenu(this);
+		templateFileMenu= new QMenu(this);
 
 		templateButton->setMinimumWidth(120);
 		templateButton->setMenu(templateMenu);
 
+		templateFileButton->setMinimumWidth(120);
+		templateFileButton->setMenu(templateFileMenu);
+
         	templateMenu->clear();
 	        foreach(QString s, conf->loadBpList())
 	                templateMenu->addAction(s);
-		
-		layout->addWidget(templateButton, 3, 7);
+
+		QDir d(QCoreApplication::applicationDirPath() + "/res/templates/", "*.xml");
+		foreach(QString file, d.entryList())
+			templateFileMenu->addAction(file);
+
+		templateFileButton->setText(QDir(QCoreApplication::applicationDirPath() + "/res/templates/", "*.xml").entryList().at(0));
+
+		layout->addWidget(templateFileButton, 3, 7);
+		layout->addWidget(templateButton, 4, 7);
 
 		connect(templateMenu	, SIGNAL(triggered(QAction*)),	this, SLOT(onTemplateMenuAction(QAction*)));
+		connect(templateFileMenu, SIGNAL(triggered(QAction*)),	this, SLOT(onTemplateFileMenuAction(QAction*)));
 	}
 
 	adjustSize();
@@ -181,4 +197,17 @@ void BlueprintInputMask::onTemplateMenuAction(QAction* a)
 
 	sbMe->setValue(c->me);
 	sbPe->setValue(c->pe);
+}
+
+void BlueprintInputMask::onTemplateFileMenuAction(QAction* a)
+{
+	//if(conf!=NULL)delete conf; // cause crash
+	delete conf;
+	// does new free memory before allocation ??
+	conf = new ConfigHandler(QCoreApplication::applicationDirPath() + "/res/templates/" + a->text());
+
+	templateFileButton->setText(a->text());
+        templateMenu->clear();
+	foreach(QString s, conf->loadBpList())
+		templateMenu->addAction(s);
 }

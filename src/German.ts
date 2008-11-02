@@ -144,9 +144,14 @@
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="blueprintInputMask.cpp" line="119"/>
+        <location filename="blueprintInputMask.cpp" line="122"/>
         <source>&amp;template</source>
         <translation>&amp;Vorlage</translation>
+    </message>
+    <message>
+        <location filename="blueprintInputMask.cpp" line="123"/>
+        <source>&amp;template file</source>
+        <translation>V&amp;orlage Datei</translation>
     </message>
 </context>
 <context>

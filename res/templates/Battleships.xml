@@ -1,0 +1,8 @@
+<!DOCTYPE ConfigFile>
+<ProdCalcConfig>
+   <Blueprints>
+      <Raven PE="0" ME="0" stackSize="1" name="Raven" prodTime="18000" >
+         <minerals Pyerite="1894802" Morphite="0" Zydrine="7060" Mexallon="474675" Nocxium="29595" Isogen="118519" Tritanium="7577632" Megacyte="2254" />
+      </Raven>
+   </Blueprints>
+</ProdCalcConfig>
