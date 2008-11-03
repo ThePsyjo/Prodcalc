@@ -83,7 +83,7 @@
     <message>
         <location filename="blueprint.cpp" line="31"/>
         <source>&amp;modify</source>
-        <translation>än&amp;dern</translation>
+        <translation>änd&amp;ern</translation>
     </message>
     <message>
         <location filename="blueprint.cpp" line="168"/>
@@ -203,22 +203,22 @@ Konfiguration wird nicht gespeichert</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="window.cpp" line="43"/>
+        <location filename="window.cpp" line="44"/>
         <source>appName</source>
         <translation>ProdCalc v 0.3.6</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="32"/>
+        <location filename="window.cpp" line="33"/>
         <source>&amp;about</source>
         <translation>&amp;über</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="44"/>
+        <location filename="window.cpp" line="45"/>
         <source>about</source>
         <translation>über</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="43"/>
+        <location filename="window.cpp" line="44"/>
         <source>about_prodcalc</source>
         <comment>dummy</comment>
         <translation>
@@ -233,9 +233,45 @@ geschrieben mit vim</translation>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="49"/>
+        <location filename="window.cpp" line="50"/>
         <source>exit</source>
         <translation>Beenden</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="51"/>
+        <source>&amp;update mineral price</source>
+        <translation>&amp;Update Mineralpreise</translation>
+    </message>
+</context>
+<context>
+    <name>MineralCosts</name>
+    <message>
+        <location filename="mineralCosts.cpp" line="92"/>
+        <source>download error</source>
+        <translation>Download Fehler</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="93"/>
+        <source>error while downloading mineral prices.
+page: &quot;%1&quot;
+&quot;%2&quot;</source>
+        <translation>Fehler während des Herunterladens der Mineralpreise.
+Seite: &quot;%1&quot;
+&quot;%2&quot;</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="107"/>
+        <source>parse error</source>
+        <translation>Parser Fehler</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="109"/>
+        <source>Parse error in mineral price list
+at line %1, column %2:
+&quot;%3&quot;</source>
+        <translation>Parserfehler in der Mineralpreisliste
+bei Zeile %1, Spalte %2:
+&quot;%3&quot;</translation>
     </message>
 </context>
 <context>

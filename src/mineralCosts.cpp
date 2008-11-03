@@ -40,7 +40,12 @@ MineralCosts::MineralCosts( QVector<double> v, QWidget * parent )
 	
 	adjustSize();
 	buf = new QBuffer;
+	buf->open(QIODevice::ReadWrite);
 	doc = new QDomDocument;
+	http = new QHttp(this);
+	url = new QUrl("http://eve-central.com/api/marketstat");
+
+	connect(http, SIGNAL(done(bool)), this, SLOT(httpGetDone(bool))); 
 }
 
 void MineralCosts::onChange()
@@ -53,40 +58,67 @@ void MineralCosts::onChange()
 
 void MineralCosts::updatePriceFromWeb()
 {
-// prices here
-// http://eve-central.com/api/marketstat?typeid=34&typeid=35&typeid=36&typeid=37&typeid=38&typeid=39&typeid=40&typeid=11399
-	buf->open(QIODevice::ReadWrite);
-/*
-	QHttp http("www.eve-central.com");
-	http.get("/api/marketstat?typeid=34&typeid=35&typeid=36&typeid=37&typeid=38&typeid=39&typeid=40&typeid=11399", buf);
-	connect(&http, SIGNAL(done(bool)), this, SLOT(httpGetDone(bool))); 
-	http.closeConnection();
-
-*/
-puts("webupdate");	
+	setCursor(Qt::WaitCursor);
+	buf->reset();
+	http->setHost(url->host());
+	http->get(url->path() + "?typeid=34&typeid=35&typeid=36&typeid=37&typeid=38&typeid=39&typeid=40&typeid=11399", buf);
 }
 
-void MineralCosts::httpGetDone(bool b)
+void MineralCosts::setValue(QString typeId, double value)
 {
+	// map mineralSpinBox to typeId's (I need a case(QString) :/)
+	if(typeId == QString("34"))
+		sbData[0]->setValue(value);
+	if(typeId == QString("35"))
+		sbData[1]->setValue(value);
+	if(typeId == QString("36"))
+		sbData[2]->setValue(value);
+	if(typeId == QString("37"))
+		sbData[3]->setValue(value);
+	if(typeId == QString("38"))
+		sbData[4]->setValue(value);
+	if(typeId == QString("39"))
+		sbData[5]->setValue(value);
+	if(typeId == QString("40"))
+		sbData[6]->setValue(value);
+	if(typeId == QString("11399"))
+		sbData[7]->setValue(value);
+}
+
+void MineralCosts::httpGetDone(bool error)
+{
+	if(error)
+	{
+		QMessageBox::warning(this, tr("download error"),tr("error while downloading mineral prices.\npage: \"%1\"\n\"%2\"")
+								.arg(url->host() + url->path())
+								.arg(http->errorString()));
+		return;
+	}
+
+//puts("----------");
+//qDebug() << buf->data();
+//puts("----------");
+
 	QString errorStr;
 	int errorLine;
 	int errorColumn;
-
-        if (!doc->setContent(buf, true, &errorStr, &errorLine, &errorColumn))
+        if (!doc->setContent(buf->data(), true, &errorStr, &errorLine, &errorColumn))
 	{
-		QMessageBox::warning(NULL, tr("parse error"),
+		QMessageBox::warning(this, tr("parse error"),
 		tr("Parse error in mineral price list\nat line %1, column %2:\n\"%3\"")
 		.arg(errorLine)
 		.arg(errorColumn)
 		.arg(errorStr));
-
 		return;
 	}
 	
-	QDomElement el = doc->documentElement().firstChildElement("evec_api").firstChildElement("marketstat");
-
-	printf("%.3f\n", el.firstChildElement("type").firstChildElement("all").firstChildElement("median").text().toDouble());
-	buf->close();
+	QDomElement el = doc->documentElement().firstChildElement("marketstat").firstChildElement("type");
+	for(int i = 0; i < 8; i++)
+	{
+		setValue(el.attribute("id"), el.firstChildElement("all").firstChildElement("median").text().toDouble());
+		el = el.nextSiblingElement("type");
+	}
+	setCursor(Qt::ArrowCursor);
 }
 
 MineralCosts::~MineralCosts()

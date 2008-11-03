@@ -27,7 +27,7 @@ MainWindow::MainWindow( QWidget * parent, Qt::WFlags f)
 	
 	mFile = menuBar()->addMenu(tr("&file"));
 	mFile->addAction(tr("exit"));
-	mFile->addAction(tr("update mineral price"));
+	mFile->addAction(tr("&update mineral price"));
 	connect(mFile, SIGNAL(triggered(QAction*)), this, SLOT(handleFileAction(QAction*)));
 
 	about = menuBar()->addMenu(tr("&about"));
@@ -48,7 +48,7 @@ void MainWindow::handleAboutAction(QAction* a)
 void MainWindow::handleFileAction(QAction* a)
 {
 	if (a->text() == tr("exit")) close();
-	if (a->text() == tr("update mineral price")) emit mineralPriceUpdateRequest(); 
+	if (a->text() == tr("&update mineral price")) emit mineralPriceUpdateRequest(); 
 }
 
 MainWindow::~MainWindow()

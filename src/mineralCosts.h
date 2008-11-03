@@ -28,7 +28,6 @@
 #include <QMessageBox>
 #include <QBuffer>
 #include <QtNetwork/QHttp>
-#include <QFile>
 
 #include "minerals.h"
 
@@ -44,6 +43,9 @@ private:
 	QDoubleSpinBox** sbData;
 	QBuffer *buf;
 	QDomDocument *doc;
+	QHttp *http;
+	QUrl *url;
+	void setValue(QString, double);
 private slots:
 	void onChange();
 	void updatePriceFromWeb();

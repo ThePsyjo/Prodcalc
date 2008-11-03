@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="en_US">
-<defaultcodec></defaultcodec>
 <context>
     <name>Blueprint</name>
     <message>
@@ -191,22 +190,22 @@ Configuration will not be written</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="window.cpp" line="43"/>
+        <location filename="window.cpp" line="44"/>
         <source>appName</source>
         <translation>ProdCalc v 0.3.6</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="32"/>
+        <location filename="window.cpp" line="33"/>
         <source>&amp;about</source>
         <translation>&amp;about</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="44"/>
+        <location filename="window.cpp" line="45"/>
         <source>about</source>
         <translation>about</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="43"/>
+        <location filename="window.cpp" line="44"/>
         <source>about_prodcalc</source>
         <comment>dummy</comment>
         <translation>
@@ -221,9 +220,45 @@ written with vim</translation>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="window.cpp" line="49"/>
+        <location filename="window.cpp" line="50"/>
         <source>exit</source>
         <translation>Exit</translation>
+    </message>
+    <message>
+        <location filename="window.cpp" line="51"/>
+        <source>&amp;update mineral price</source>
+        <translation>&amp;Update mineral prices</translation>
+    </message>
+</context>
+<context>
+    <name>MineralCosts</name>
+    <message>
+        <location filename="mineralCosts.cpp" line="92"/>
+        <source>download error</source>
+        <translation>download error</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="93"/>
+        <source>error while downloading mineral prices.
+page: &quot;%1&quot;
+&quot;%2&quot;</source>
+        <translation>error while downloading mineral prices.
+page: &quot;%1&quot;
+&quot;%2&quot;</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="107"/>
+        <source>parse error</source>
+        <translation>parse error</translation>
+    </message>
+    <message>
+        <location filename="mineralCosts.cpp" line="109"/>
+        <source>Parse error in mineral price list
+at line %1, column %2:
+&quot;%3&quot;</source>
+        <translation>Parse error in mineral price list
+at line %1, column %2:
+&quot;%3&quot;</translation>
     </message>
 </context>
 <context>
