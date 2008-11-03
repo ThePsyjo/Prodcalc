@@ -22,6 +22,14 @@
 
 #include <QVector>
 #include <QDoubleSpinBox>
+
+#include <QtXml>
+#include <QString>
+#include <QMessageBox>
+#include <QBuffer>
+#include <QtNetwork/QHttp>
+#include <QFile>
+
 #include "minerals.h"
 
 class MineralCosts : public Minerals
@@ -34,8 +42,12 @@ private:
 	QVector<QDoubleSpinBox*> *sb;
 	QVector<double> *costVector;
 	QDoubleSpinBox** sbData;
+	QBuffer *buf;
+	QDomDocument *doc;
 private slots:
 	void onChange();
+	void updatePriceFromWeb();
+	void httpGetDone(bool);
 signals:
 	void costChanged(QVector<double>*);
 };

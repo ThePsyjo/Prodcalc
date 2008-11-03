@@ -37,6 +37,8 @@ private:
 private slots:
 	void handleAboutAction(QAction* a);
 	void handleFileAction(QAction* a);
+signals:
+	void mineralPriceUpdateRequest(); 
 };
 
 

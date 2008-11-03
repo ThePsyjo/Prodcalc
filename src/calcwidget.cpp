@@ -87,6 +87,8 @@ CalcWidget::CalcWidget( QWidget * parent)
 	connect(bp,	SIGNAL(delBp(QString)),		this, SLOT(onBpDelClick(QString))	);
 	connect(bp,	SIGNAL(saveBp(BpConfig*)),	this, SLOT(onBpSaveClick(BpConfig*))	);
 	connect(bp,	SIGNAL(bpConfChanged(BpConfig*)),this,SLOT(onBpConfigChanged(BpConfig*)));
+
+	connect(parent, SIGNAL(mineralPriceUpdateRequest()),	costs,	SLOT(updatePriceFromWeb()));
 }
 
 int CalcWidget::d2i(double d){return int(d<0?d-.5:d+.5);}

@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . src
 INCLUDEPATH += . src
-QT += xml
+QT += xml 
 OBJECTS_DIR += obj
 MOC_DIR += moc
 

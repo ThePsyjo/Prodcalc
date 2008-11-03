@@ -39,6 +39,8 @@ MineralCosts::MineralCosts( QVector<double> v, QWidget * parent )
 	}
 	
 	adjustSize();
+	buf = new QBuffer;
+	doc = new QDomDocument;
 }
 
 void MineralCosts::onChange()
@@ -49,8 +51,44 @@ void MineralCosts::onChange()
 	emit costChanged(costVector);
 }
 
+void MineralCosts::updatePriceFromWeb()
+{
+// prices here
+// http://eve-central.com/api/marketstat?typeid=34&typeid=35&typeid=36&typeid=37&typeid=38&typeid=39&typeid=40&typeid=11399
+	buf->open(QIODevice::ReadWrite);
+/*
+	QHttp http("www.eve-central.com");
+	http.get("/api/marketstat?typeid=34&typeid=35&typeid=36&typeid=37&typeid=38&typeid=39&typeid=40&typeid=11399", buf);
+	connect(&http, SIGNAL(done(bool)), this, SLOT(httpGetDone(bool))); 
+	http.closeConnection();
+
+*/
+puts("webupdate");	
+}
+
+void MineralCosts::httpGetDone(bool b)
+{
+	QString errorStr;
+	int errorLine;
+	int errorColumn;
+
+        if (!doc->setContent(buf, true, &errorStr, &errorLine, &errorColumn))
+	{
+		QMessageBox::warning(NULL, tr("parse error"),
+		tr("Parse error in mineral price list\nat line %1, column %2:\n\"%3\"")
+		.arg(errorLine)
+		.arg(errorColumn)
+		.arg(errorStr));
+
+		return;
+	}
+	
+	QDomElement el = doc->documentElement().firstChildElement("evec_api").firstChildElement("marketstat");
+
+	printf("%.3f\n", el.firstChildElement("type").firstChildElement("all").firstChildElement("median").text().toDouble());
+	buf->close();
+}
 
 MineralCosts::~MineralCosts()
 {}
-
 
