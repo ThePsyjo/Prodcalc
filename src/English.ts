@@ -192,7 +192,7 @@ Configuration will not be written</translation>
     <message>
         <location filename="window.cpp" line="44"/>
         <source>appName</source>
-        <translation>ProdCalc v 0.3.6</translation>
+        <translation>ProdCalc v 0.3.6.7</translation>
     </message>
     <message>
         <location filename="window.cpp" line="33"/>
@@ -211,6 +211,7 @@ Configuration will not be written</translation>
         <translation>
 
 Copyright © 2008 Psyjo
+GNU General Public License v3
 http://prodcalc.googlecode.com
 written with vim</translation>
     </message>

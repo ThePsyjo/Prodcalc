@@ -26,8 +26,8 @@ MainWindow::MainWindow( QWidget * parent, Qt::WFlags f)
 	calc = new CalcWidget (this);
 	
 	mFile = menuBar()->addMenu(tr("&file"));
-	mFile->addAction(tr("exit"));
 	mFile->addAction(tr("&update mineral price"));
+	mFile->addAction(tr("exit"));
 	connect(mFile, SIGNAL(triggered(QAction*)), this, SLOT(handleFileAction(QAction*)));
 
 	about = menuBar()->addMenu(tr("&about"));

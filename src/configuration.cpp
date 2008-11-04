@@ -95,14 +95,14 @@ QVector<double> ConfigHandler::loadMineralPrice()
 
 	QDomElement tag = genTag ( doc->documentElement(), "MineralPrice" );
 
-	v.append( tag.attribute("Tritanium",	"2.50"	).toDouble());
-	v.append( tag.attribute("Pyerite",	"5"	).toDouble());
-	v.append( tag.attribute("Mexallon",	"25"	).toDouble());
-	v.append( tag.attribute("Isogen",	"65"	).toDouble());
-	v.append( tag.attribute("Nocxium",	"120"	).toDouble());
-	v.append( tag.attribute("Zydrine",	"2500"	).toDouble());
-	v.append( tag.attribute("Megacyte",	"4500"	).toDouble());
-	v.append( tag.attribute("Morphite",	"18000"	).toDouble());
+	v.append( tag.attribute("Tritanium",	"0"	).toDouble());
+	v.append( tag.attribute("Pyerite",	"0"	).toDouble());
+	v.append( tag.attribute("Mexallon",	"0"	).toDouble());
+	v.append( tag.attribute("Isogen",	"0"	).toDouble());
+	v.append( tag.attribute("Nocxium",	"0"	).toDouble());
+	v.append( tag.attribute("Zydrine",	"0"	).toDouble());
+	v.append( tag.attribute("Megacyte",	"0"	).toDouble());
+	v.append( tag.attribute("Morphite",	"0"	).toDouble());
 
 	return v;
 }

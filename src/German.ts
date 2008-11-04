@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de_DE">
-<defaultcodec></defaultcodec>
 <context>
     <name>Blueprint</name>
     <message>
@@ -205,7 +204,7 @@ Konfiguration wird nicht gespeichert</translation>
     <message>
         <location filename="window.cpp" line="44"/>
         <source>appName</source>
-        <translation>ProdCalc v 0.3.6</translation>
+        <translation>ProdCalc v 0.3.6.7</translation>
     </message>
     <message>
         <location filename="window.cpp" line="33"/>
@@ -224,6 +223,7 @@ Konfiguration wird nicht gespeichert</translation>
         <translation>
 
 Copyright © 2008 Psyjo
+GNU General Public License v3
 http://prodcalc.googlecode.com
 geschrieben mit vim</translation>
     </message>
