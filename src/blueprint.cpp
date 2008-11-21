@@ -44,6 +44,8 @@ Blueprint::Blueprint( QWidget * parent)
 
 	sbMe->setMaximum(1000000);
 	sbPe->setMaximum(1000000);
+	sbMe->setMinimum(-1000000);
+	sbPe->setMinimum(-1000000);
 
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
@@ -111,7 +113,7 @@ void Blueprint::setBp(BpConfig* c)
 	h    = unsigned( c->prodTime - d * 86400) / 3600;
 	m    = unsigned( c->prodTime - d * 86400 - h * 3600 ) / 60;
 	s    = unsigned( c->prodTime - d * 86400 - h * 3600 - m * 60 );
-	lProdTimeV->setText(toStr(d, " s, ") + toStr(h, " h, ") + toStr(m, " m, ") + toStr(s, " s"));
+	lProdTimeV->setText(toStr(d, " d, ") + toStr(h, " h, ") + toStr(m, " m, ") + toStr(s, " s"));
 
 	lStackV->setText(toStr(c->stackSize, ""));
 	sbMe->setValue(c->me);

@@ -66,7 +66,7 @@ void MineralCosts::updatePriceFromWeb()
 
 void MineralCosts::setValue(QString typeId, double value)
 {
-	// map mineralSpinBox to typeId's (I need a case(QString) :/)
+	// map mineralSpinBox to typeId's (I need a switch(QString) :/)
 	if(typeId == QString("34"))
 		sbData[0]->setValue(value);
 	if(typeId == QString("35"))

@@ -31,6 +31,8 @@
 #include "result.h"
 #include "configuration.h"
 #include "shoppingList.h"
+#include <math.h>
+// f__k pow !
 
 class CalcWidget : public QWidget
 {
