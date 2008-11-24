@@ -69,8 +69,8 @@ BlueprintInputMask::BlueprintInputMask( QString name, BpConfig *c, bool nameRo, 
 	sbMe = new QSpinBox (this);
 	sbMe->setMaximum(1000000);
 	sbPe->setMaximum(1000000);
-	sbMe->setMinimum(-1000000);
-	sbPe->setMinimum(-1000000);
+	sbMe->setMinimum(-10);
+	sbPe->setMinimum(-10);
 	sbMe->setValue(bpConf->me);
 	sbPe->setValue(bpConf->pe);
 

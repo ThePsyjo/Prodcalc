@@ -100,6 +100,7 @@ void CalcWidget::recalc()
 	bpConf->prodTime = d2i((bpConf->baseProdTime*( (bpConf->pe>=0) ? 0.8+0.2/(1+bpConf->pe) : 0.8+0.2*(pow(2,(bpConf->pe*-1))) ))*(1-0.04*industrySkill));
 	for (int i = 0; i<8; i++)
 		bpConf->cnt->insert(i, d2i(bpConf->baseCnt->at(i)*((bpConf->me>=0) ? 1+0.1/(bpConf->me+1) : 1+0.1*(pow(2,(bpConf->me*-1))) )*(1.25-0.05*producteffSkill)));
+//		bpConf->cnt->insert(i, d2i(bpConf->baseCnt->at(i)*(1+0.1/(pow(2,bpConf->me)))*(1.25-0.05*producteffSkill))); // where is the trick ?
 	bp->setBp(bpConf);
 	//
 	mSumCost = 0;

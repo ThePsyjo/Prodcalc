@@ -44,8 +44,8 @@ Blueprint::Blueprint( QWidget * parent)
 
 	sbMe->setMaximum(1000000);
 	sbPe->setMaximum(1000000);
-	sbMe->setMinimum(-1000000);
-	sbPe->setMinimum(-1000000);
+	sbMe->setMinimum(-10);
+	sbPe->setMinimum(-10);
 
 	bpSelect->setMinimumWidth(120);
 	bpSelect->setMenu(bpSelectMenu);
