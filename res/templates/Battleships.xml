@@ -1,17 +1,17 @@
 <!DOCTYPE ConfigFile>
 <ProdCalcConfig>
    <Blueprints>
-      <Raven PE="0" ME="0" stackSize="1" name="Raven" prodTime="18000" >
-         <minerals Pyerite="1894802" Morphite="0" Zydrine="7060" Mexallon="474675" Nocxium="29595" Isogen="118519" Tritanium="7577632" Megacyte="2254" />
+      <Raven PE="0" ME="0" stackSize="1" name="Raven" prodTime="18000">
+         <minerals Pyerite="1894802" Morphite="0" Zydrine="7060" Mexallon="474675" Nocxium="29595" Isogen="118519" Tritanium="7577632" Megacyte="2254"/>
       </Raven>
-      <Maelstrom PE="0" ME="0" stackSize="1" name="Maelstrom" prodTime="18000" >
-         <minerals Pyerite="2654764" Morphite="0" Zydrine="9867" Mexallon="663953" Nocxium="41419" Isogen="165851" Tritanium="10617760" Megacyte="2275" />
+      <Maelstrom PE="0" ME="0" stackSize="1" name="Maelstrom" prodTime="18000">
+         <minerals Pyerite="2654764" Morphite="0" Zydrine="9867" Mexallon="663953" Nocxium="41419" Isogen="165851" Tritanium="10617760" Megacyte="2275"/>
       </Maelstrom>
-      <Typhoon PE="0" ME="0" stackSize="1" name="Typhoon" prodTime="18000" >
-         <minerals Pyerite="1280694" Morphite="0" Zydrine="4678" Mexallon="322370" Nocxium="19995" Isogen="80265" Tritanium="5120040" Megacyte="1722" />
+      <Typhoon PE="0" ME="0" stackSize="1" name="Typhoon" prodTime="18000">
+         <minerals Pyerite="1280694" Morphite="0" Zydrine="4678" Mexallon="322370" Nocxium="19995" Isogen="80265" Tritanium="5120040" Megacyte="1722"/>
       </Typhoon>
-      <Tempest PE="0" ME="0" stackSize="1" name="Tempest" prodTime="18000" >
-         <minerals Pyerite="1843893" Morphite="0" Zydrine="6794" Mexallon="462643" Nocxium="28778" Isogen="115378" Tritanium="7372852" Megacyte="1957" />
+      <Tempest PE="0" ME="0" stackSize="1" name="Tempest" prodTime="18000">
+         <minerals Pyerite="1843893" Morphite="0" Zydrine="6794" Mexallon="462643" Nocxium="28778" Isogen="115378" Tritanium="7372852" Megacyte="1957"/>
       </Tempest>
    </Blueprints>
 </ProdCalcConfig>

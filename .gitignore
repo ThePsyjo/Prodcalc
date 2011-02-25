@@ -1,0 +1,13 @@
+*.[oa]
+# *~
+.ssh
+win
+Makefile
+esw
+tmp
+prodcalc/tmp
+prodcalc/prodcalc
+object_script.esw
+*.qm
+esw.pro.user
+bin

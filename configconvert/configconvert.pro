@@ -9,7 +9,7 @@ win32 {
 }
 
 TEMPLATE = app
-DESTDIR = ../cc
+DESTDIR = ../bin
 DEPENDPATH += .
 INCLUDEPATH += .
 QT += xml
