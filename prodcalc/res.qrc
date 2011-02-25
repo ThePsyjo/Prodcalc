@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+        <qresource>
+                <file alias="German.qm">German.qm</file>
+                <file alias="English.qm">English.qm</file>
+        </qresource>
+</RCC>

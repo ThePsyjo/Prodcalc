@@ -29,11 +29,11 @@ int main(int argc, char ** argv)
 	QApplication app( argc, argv );
 
 	QTranslator translator;
-	//printf("%s\n", QLocale::languageToString(QLocale::system().language()).toAscii().data());
-	if(! translator.load(QCoreApplication::applicationDirPath() + "/res/" + QLocale::languageToString(QLocale::system().language())))
-		if(! translator.load(QCoreApplication::applicationDirPath() + "/res/English.qm"))
+
+	if(! translator.load(":/" + QLocale::languageToString(QLocale::system().language())))
+		if(! translator.load(":/English.qm"))
 		{
-			QMessageBox::warning(NULL, "Error", "Error while loading language.\nCheck whether ./res/[(English)(German)(C)].qm is available!");
+			QMessageBox::warning(NULL, "Error", "Error while loading translation.");
 			return 1;
 		}
 

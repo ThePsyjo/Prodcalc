@@ -72,3 +72,4 @@ SOURCES += blueprint.cpp \
            tax.cpp \
            window.cpp
 TRANSLATIONS += English.ts German.ts
+RESOURCES += res.qrc
