@@ -54,6 +54,7 @@ private:
 	BpConfig *bpConf;
 	QDomElement genTag(QDomElement, QString);
 	bool tagCreated, saveOnExit;
+	QDomElement findBp(QString);
 public slots:
 	// save functs
 	void delBlueprint(QString);

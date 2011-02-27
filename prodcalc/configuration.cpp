@@ -183,13 +183,30 @@ int ConfigHandler::loadIndustrySkill()
 }
 
 ///////////////////////  save/load Bp //////////////////////
+
+QDomElement ConfigHandler::findBp(QString name)
+{
+	QDomNodeList l = genTag(doc->documentElement(), "Blueprints").childNodes();
+	int n;
+	for(n = 0; n < l.size(); n++)
+	{
+		if(l.at(n).toElement().attribute("name") == name)
+			return l.at(n).toElement();
+	}
+	return QDomElement();
+}
+
 void ConfigHandler::saveBlueprint(BpConfig* c)
 {
 	bpConf = c;
-	QString bpTagName = bpConf->name;
-	bpTagName.replace(' ', '_');
+	bool newTag = 0;
 
-	QDomElement blueprintTag = genTag( genTag(doc->documentElement(), "Blueprints"), bpTagName );
+	QDomElement blueprintTag = findBp(bpConf->name);
+	if(blueprintTag.isNull())
+	{
+		blueprintTag = genTag(doc->documentElement(), "Blueprints").appendChild(doc->createElement("bp")).toElement();
+		newTag = 1;
+	}
 
 //	QDomElement 
 //	tag = genTag ( blueprintTag, "name" );
@@ -205,11 +222,9 @@ void ConfigHandler::saveBlueprint(BpConfig* c)
 	blueprintTag.setAttribute("PE", bpConf->pe);
 
 	// bp name has to be set !!
-	if (tagCreated) emit bpListChanged(loadBpList()); // a new blueprint was added
+	if (newTag) emit bpListChanged(loadBpList()); // a new blueprint was added
 
-
-	QDomElement 
-	tag = genTag( blueprintTag, "minerals" );
+	QDomElement tag = genTag( blueprintTag, "minerals" );
 	tag.setAttribute("Tritanium",	bpConf->baseCnt->at(0));		
 	tag.setAttribute("Pyerite",	bpConf->baseCnt->at(1));		
 	tag.setAttribute("Mexallon",	bpConf->baseCnt->at(2));		
@@ -225,15 +240,15 @@ BpConfig* ConfigHandler::loadBlueprint(QString name)
 	bpConf->name = name;
 	// here cuz name wold be unspaced in lext line
 
-	QDomElement blueprintTag = genTag( genTag(doc->documentElement(), "Blueprints"), name.replace(' ', '_') ); // tag containing selected blueprints
+	QDomElement blueprintTag = findBp(name);
+	//QDomElement blueprintTag = genTag( genTag(doc->documentElement(), "Blueprints"), name.replace(' ', '_') ); // tag containing selected blueprints
 
 	bpConf->stackSize =  blueprintTag.attribute("stackSize", "1").toInt();
 	bpConf->me =  blueprintTag.attribute("ME", "0").toInt();
 	bpConf->pe =  blueprintTag.attribute("PE", "0").toInt();
 	bpConf->baseProdTime =  blueprintTag.attribute("prodTime", "0").toInt();
 
-	QDomElement 
-	tag = genTag ( blueprintTag, "minerals" );
+	QDomElement tag = genTag ( blueprintTag, "minerals" );
 
 	bpConf->baseCnt->insert( 0, tag.attribute("Tritanium",	"0").toInt());
 	bpConf->baseCnt->insert( 1, tag.attribute("Pyerite",	"0").toInt());
@@ -265,7 +280,7 @@ QVector<QString> ConfigHandler::loadBpList()
 void ConfigHandler::delBlueprint(QString s)
 {
         QDomElement bpTag = genTag(doc->documentElement(), "Blueprints");
-        QDomElement bp    = bpTag.firstChildElement(s.replace(' ', '_'));
+        QDomElement bp    = findBp(s);
 
 	bpTag.removeChild(bp);
 
